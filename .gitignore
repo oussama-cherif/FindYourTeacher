@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.production
+!.env.example
+
+# Next.js
+.next/
+out/
+
+# NestJS / TypeScript build
+dist/
+
+# Prisma generated client
+generated/
+
+# Prisma local dev DB
+prisma/dev.db
+
+# Coverage
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Turbo
+.turbo/
+
+# AI session files
+CLAUDE.md
+.claude/

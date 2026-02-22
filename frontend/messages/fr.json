@@ -1,0 +1,42 @@
+{
+  "common": {
+    "appName": "FindYourTeacher",
+    "tagline": "Trouvez votre professeur de langues en Tunisie",
+    "login": "Se connecter",
+    "register": "Créer un compte",
+    "logout": "Se déconnecter",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "fullName": "Nom complet",
+    "submit": "Envoyer",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "switchLanguage": "English"
+  },
+  "landing": {
+    "heroTitle": "Apprenez une nouvelle langue avec les meilleurs professeurs tunisiens",
+    "heroSubtitle": "Cours particuliers et en groupe, en ligne avec vidéo intégrée",
+    "ctaStudent": "Je cherche un professeur",
+    "ctaTeacher": "Je suis professeur",
+    "featuresTitle": "Pourquoi FindYourTeacher ?",
+    "feature1Title": "Professeurs vérifiés",
+    "feature1Desc": "Tous nos professeurs sont validés par notre équipe",
+    "feature2Title": "Prix transparents",
+    "feature2Desc": "Pas de frais cachés, tarifs affichés clairement",
+    "feature3Title": "Cours en ligne",
+    "feature3Desc": "Apprenez depuis chez vous avec notre système vidéo intégré"
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "registerTitle": "Inscription",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "roleStudent": "Élève",
+    "roleTeacher": "Professeur",
+    "selectRole": "Je suis...",
+    "invalidCredentials": "Email ou mot de passe incorrect",
+    "emailTaken": "Cet email est déjà utilisé",
+    "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
+    "registerSuccess": "Compte créé avec succès"
+  }
+}

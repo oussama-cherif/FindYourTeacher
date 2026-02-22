@@ -1,0 +1,42 @@
+{
+  "common": {
+    "appName": "FindYourTeacher",
+    "tagline": "Find your language teacher in Tunisia",
+    "login": "Log in",
+    "register": "Create account",
+    "logout": "Log out",
+    "email": "Email address",
+    "password": "Password",
+    "fullName": "Full name",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "switchLanguage": "Français"
+  },
+  "landing": {
+    "heroTitle": "Learn a new language with the best Tunisian teachers",
+    "heroSubtitle": "Private and group lessons, online with built-in video",
+    "ctaStudent": "I'm looking for a teacher",
+    "ctaTeacher": "I am a teacher",
+    "featuresTitle": "Why FindYourTeacher?",
+    "feature1Title": "Verified teachers",
+    "feature1Desc": "All our teachers are validated by our team",
+    "feature2Title": "Transparent pricing",
+    "feature2Desc": "No hidden fees, prices displayed clearly",
+    "feature3Title": "Online lessons",
+    "feature3Desc": "Learn from home with our built-in video system"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Sign up",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "roleStudent": "Student",
+    "roleTeacher": "Teacher",
+    "selectRole": "I am a...",
+    "invalidCredentials": "Incorrect email or password",
+    "emailTaken": "This email is already in use",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "registerSuccess": "Account created successfully"
+  }
+}
