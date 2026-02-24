@@ -31,11 +31,13 @@ npx prisma studio       # database GUI at localhost:5555
 
 ## API Routes
 
-| Module   | Prefix          | Endpoints                                     |
-|----------|-----------------|-----------------------------------------------|
-| Auth     | `/api/auth`     | register, login, refresh, logout              |
-| Users    | `/api/users`    | me                                            |
-| Teachers | `/api/teachers` | profile, availability, browse, public profile |
+| Module      | Prefix              | Endpoints                                               |
+|-------------|---------------------|---------------------------------------------------------|
+| Auth        | `/api/auth`         | register, login, refresh, logout                        |
+| Users       | `/api/users`        | me                                                      |
+| Teachers    | `/api/teachers`     | profile CRUD, availability CRUD, browse, public profile |
+| Onboarding  | `/api/onboarding`   | book call, student/teacher call lists, confirm, cancel  |
+| Groups      | `/api/groups`       | CRUD, browse, join/leave, membership approval/removal   |
 
 ## Environment Variables
 
