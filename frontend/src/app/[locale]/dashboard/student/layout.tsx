@@ -6,7 +6,7 @@ import { Link, useRouter } from '@/i18n/navigation';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import api from '@/lib/api';
 
-export default function TeacherDashboardLayout({
+export default function StudentDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export default function TeacherDashboardLayout({
     api
       .get('/users/me')
       .then(({ data }) => {
-        if (data.role !== 'TEACHER') {
+        if (data.role !== 'STUDENT') {
           router.push('/');
           return;
         }
@@ -70,34 +70,22 @@ export default function TeacherDashboardLayout({
         <aside className="w-64 border-r border-gray-200 bg-white min-h-[calc(100vh-65px)] p-4">
           <nav className="space-y-1">
             <Link
-              href="/dashboard/teacher"
+              href="/dashboard/student"
               className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
-              {t('teacher.dashboard')}
+              {t('student.dashboard')}
             </Link>
             <Link
-              href="/dashboard/teacher/profile"
+              href="/dashboard/student/calls"
               className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
-              {t('teacher.profile')}
+              {t('student.myCalls')}
             </Link>
             <Link
-              href="/dashboard/teacher/availability"
+              href="/dashboard/student/groups"
               className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
-              {t('teacher.availability')}
-            </Link>
-            <Link
-              href="/dashboard/teacher/calls"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-            >
-              {t('teacher.calls')}
-            </Link>
-            <Link
-              href="/dashboard/teacher/groups"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-            >
-              {t('teacher.groups')}
+              {t('student.myGroups')}
             </Link>
           </nav>
         </aside>

@@ -71,7 +71,13 @@
     "profileIncomplete": "Profil à compléter",
     "slotsCount": "{count} créneaux",
     "groups": "Groupes",
-    "comingSoon": "Bientôt disponible"
+    "comingSoon": "Bientôt disponible",
+    "calls": "Appels découverte",
+    "noCalls": "Aucun appel reçu",
+    "confirmCall": "Confirmer",
+    "cancelCall": "Annuler",
+    "callConfirmed": "Appel confirmé",
+    "callCancelled": "Appel annulé"
   },
   "teachers": {
     "browseTitle": "Trouver un professeur",
@@ -85,7 +91,15 @@
     "memberSince": "Membre depuis {date}",
     "availableSlots": "Créneaux disponibles",
     "bookOnboarding": "Réserver un appel découverte",
-    "bookingSoon": "Réservation bientôt disponible"
+    "bookingSoon": "Réservation bientôt disponible",
+    "selectSlot": "Choisissez un créneau",
+    "selectDate": "Choisissez une date",
+    "confirmBooking": "Confirmer la réservation",
+    "notesPlaceholder": "Décrivez vos objectifs (facultatif)...",
+    "loginToBook": "Connectez-vous pour réserver",
+    "noSlotsAvailable": "Aucun créneau disponible",
+    "bookingConfirmed": "Votre appel a bien été réservé !",
+    "slotAlreadyBooked": "Ce créneau est déjà réservé"
   },
   "days": {
     "0": "Lundi",
@@ -109,5 +123,72 @@
     "adults": "Adultes",
     "workers": "Professionnels",
     "elderly": "Seniors"
+  },
+  "student": {
+    "dashboard": "Tableau de bord",
+    "welcome": "Bienvenue, {name}",
+    "myCalls": "Mes appels",
+    "myGroups": "Mes groupes",
+    "upcomingCalls": "Appels à venir",
+    "activeGroups": "Groupes actifs",
+    "noCallsYet": "Aucun appel réservé",
+    "noGroupsYet": "Aucun groupe rejoint",
+    "cancelCall": "Annuler l'appel",
+    "callCancelled": "Appel annulé",
+    "leaveGroup": "Quitter le groupe",
+    "leftGroup": "Groupe quitté",
+    "callStatus": {
+      "PENDING": "En attente",
+      "CONFIRMED": "Confirmé",
+      "DONE": "Terminé",
+      "CANCELLED": "Annulé"
+    },
+    "membershipStatus": {
+      "PENDING": "En attente",
+      "ACTIVE": "Actif",
+      "LEFT": "Quitté",
+      "REMOVED": "Retiré"
+    }
+  },
+  "groups": {
+    "browseTitle": "Groupes disponibles",
+    "create": "Créer un groupe",
+    "createTitle": "Nouveau groupe",
+    "name": "Nom du groupe",
+    "language": "Langue",
+    "level": "Niveau",
+    "audienceType": "Public",
+    "maxStudents": "Nombre max d'élèves",
+    "pricePerSession": "Prix par séance (DT)",
+    "groupCreated": "Groupe créé",
+    "groupUpdated": "Groupe mis à jour",
+    "groupDeactivated": "Groupe désactivé",
+    "members": "Membres",
+    "membersCount": "{count} / {max} membres",
+    "noGroups": "Aucun groupe créé",
+    "approve": "Approuver",
+    "remove": "Retirer",
+    "memberApproved": "Membre approuvé",
+    "memberRemoved": "Membre retiré",
+    "joinGroup": "Rejoindre ce groupe",
+    "joinRequested": "Demande envoyée",
+    "groupFull": "Groupe complet",
+    "allLevels": "Tous les niveaux",
+    "availableSpots": "{count} place(s) disponible(s)",
+    "deactivate": "Désactiver",
+    "manageMembers": "Gérer les membres",
+    "noMembers": "Aucun membre",
+    "teacherName": "Professeur",
+    "noResults": "Aucun groupe trouvé",
+    "viewDetails": "Voir les détails",
+    "priceLabel": "Prix par séance"
+  },
+  "levelOptions": {
+    "A1": "A1 — Débutant",
+    "A2": "A2 — Élémentaire",
+    "B1": "B1 — Intermédiaire",
+    "B2": "B2 — Intermédiaire avancé",
+    "C1": "C1 — Avancé",
+    "C2": "C2 — Maîtrise"
   }
 }

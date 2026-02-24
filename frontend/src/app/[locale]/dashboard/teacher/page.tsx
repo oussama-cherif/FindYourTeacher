@@ -18,6 +18,11 @@ export default function TeacherDashboardPage() {
     queryFn: () => api.get('/teachers/availability').then((r) => r.data),
   });
 
+  const { data: groups } = useQuery({
+    queryKey: ['teacher', 'groups'],
+    queryFn: () => api.get('/groups/teacher').then((r) => r.data),
+  });
+
   const isProfileComplete =
     profile?.bio && profile?.languages?.length > 0 && profile?.audienceTypes?.length > 0;
 
@@ -64,14 +69,20 @@ export default function TeacherDashboardPage() {
           </Link>
         </div>
 
-        {/* Groups card (coming soon) */}
-        <div className="rounded-xl bg-white p-6 shadow-sm opacity-60">
+        {/* Groups card */}
+        <div className="rounded-xl bg-white p-6 shadow-sm">
           <h3 className="text-sm font-medium text-gray-500">
             {t('teacher.groups')}
           </h3>
-          <p className="mt-2 text-lg font-semibold text-gray-400">
-            {t('teacher.comingSoon')}
+          <p className="mt-2 text-lg font-semibold text-gray-900">
+            {groups?.length ?? 0} {t('teacher.groups').toLowerCase()}
           </p>
+          <Link
+            href="/dashboard/teacher/groups"
+            className="mt-4 inline-block text-sm text-blue-600 hover:underline"
+          >
+            {t('groups.manageMembers')}
+          </Link>
         </div>
       </div>
     </div>

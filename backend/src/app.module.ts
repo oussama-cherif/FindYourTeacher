@@ -7,6 +7,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TeachersModule } from './teachers/teachers.module';
+import { OnboardingModule } from './onboarding/onboarding.module';
+import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { TeachersModule } from './teachers/teachers.module';
     AuthModule,
     UsersModule,
     TeachersModule,
+    OnboardingModule,
+    GroupsModule,
   ],
   providers: [
     {

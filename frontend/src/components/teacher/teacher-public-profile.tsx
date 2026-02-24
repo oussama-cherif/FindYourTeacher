@@ -1,12 +1,14 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { Link } from '@/i18n/navigation';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import axios from 'axios';
+import api from '@/lib/api';
 
-interface TeacherPublicProfile {
+interface TeacherPublicProfileData {
   id: string;
   fullName: string;
   avatarUrl?: string | null;
@@ -28,8 +30,34 @@ interface TeacherPublicProfile {
 
 export function TeacherPublicProfile({ teacherId }: { teacherId: string }) {
   const t = useTranslations();
+  const tDays = useTranslations('days');
 
-  const { data: teacher, isLoading } = useQuery<TeacherPublicProfile>({
+  const [currentUser, setCurrentUser] = useState<{
+    id: string;
+    role: string;
+  } | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [selectedSlotId, setSelectedSlotId] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [notes, setNotes] = useState('');
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingError, setBookingError] = useState('');
+
+  // Check auth state
+  useEffect(() => {
+    api
+      .get('/users/me')
+      .then(({ data }) => {
+        setCurrentUser(data);
+        setAuthChecked(true);
+      })
+      .catch(() => {
+        setAuthChecked(true);
+      });
+  }, []);
+
+  const { data: teacher, isLoading } = useQuery<TeacherPublicProfileData>({
     queryKey: ['teachers', 'profile', teacherId],
     queryFn: () =>
       axios
@@ -37,14 +65,57 @@ export function TeacherPublicProfile({ teacherId }: { teacherId: string }) {
         .then((r) => r.data),
   });
 
+  const bookMutation = useMutation({
+    mutationFn: (data: {
+      teacherId: string;
+      slotId: string;
+      scheduledAt: string;
+      studentNotes?: string;
+    }) => api.post('/onboarding', data),
+    onSuccess: () => {
+      setBookingSuccess(true);
+      setShowBookingForm(false);
+      setBookingError('');
+    },
+    onError: (err: { response?: { status?: number } }) => {
+      if (err.response?.status === 409) {
+        setBookingError(t('teachers.slotAlreadyBooked'));
+      } else {
+        setBookingError(t('common.error'));
+      }
+    },
+  });
+
   // Group slots by day
-  const slotsByDay = new Map<number, NonNullable<TeacherPublicProfile>['availabilitySlots']>();
+  const slotsByDay = new Map<
+    number,
+    NonNullable<TeacherPublicProfileData>['availabilitySlots']
+  >();
   if (teacher?.availabilitySlots) {
     for (const slot of teacher.availabilitySlots) {
       const existing = slotsByDay.get(slot.dayOfWeek) ?? [];
       existing.push(slot);
       slotsByDay.set(slot.dayOfWeek, existing);
     }
+  }
+
+  function handleBooking(e: React.FormEvent) {
+    e.preventDefault();
+    if (!selectedSlotId || !selectedDate) return;
+
+    const slot = teacher?.availabilitySlots.find(
+      (s) => s.id === selectedSlotId,
+    );
+    if (!slot) return;
+
+    const scheduledAt = `${selectedDate}T${slot.startTime}:00.000Z`;
+
+    bookMutation.mutate({
+      teacherId,
+      slotId: selectedSlotId,
+      scheduledAt,
+      ...(notes.trim() && { studentNotes: notes.trim() }),
+    });
   }
 
   return (
@@ -151,7 +222,7 @@ export function TeacherPublicProfile({ teacherId }: { teacherId: string }) {
                     return (
                       <div key={day}>
                         <h4 className="text-sm font-medium text-gray-700 mb-1">
-                          {t(`days.${day}`)}
+                          {tDays(String(day))}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {daySlots.map((slot) => (
@@ -170,13 +241,119 @@ export function TeacherPublicProfile({ teacherId }: { teacherId: string }) {
               )}
             </div>
 
-            {/* Book button (disabled for now) */}
-            <button
-              disabled
-              className="w-full rounded-lg bg-blue-600 px-4 py-3 text-white opacity-50 cursor-not-allowed"
-            >
-              {t('teachers.bookingSoon')}
-            </button>
+            {/* Booking section */}
+            {bookingSuccess ? (
+              <div className="rounded-xl bg-green-50 p-6 text-center">
+                <p className="text-green-700 font-medium">
+                  {t('teachers.bookingConfirmed')}
+                </p>
+              </div>
+            ) : authChecked && !currentUser ? (
+              // Guest — link to login
+              <Link
+                href="/login"
+                className="block w-full rounded-lg bg-blue-600 px-4 py-3 text-center text-white hover:bg-blue-700 transition-colors"
+              >
+                {t('teachers.loginToBook')}
+              </Link>
+            ) : authChecked && currentUser?.role === 'TEACHER' ? (
+              // Teacher — don't show booking
+              null
+            ) : authChecked && currentUser?.role === 'STUDENT' ? (
+              teacher.availabilitySlots.length === 0 ? (
+                <button
+                  disabled
+                  className="w-full rounded-lg bg-blue-600 px-4 py-3 text-white opacity-50 cursor-not-allowed"
+                >
+                  {t('teachers.noSlotsAvailable')}
+                </button>
+              ) : !showBookingForm ? (
+                <button
+                  onClick={() => setShowBookingForm(true)}
+                  className="w-full rounded-lg bg-blue-600 px-4 py-3 text-white hover:bg-blue-700 transition-colors"
+                >
+                  {t('teachers.bookOnboarding')}
+                </button>
+              ) : (
+                <div className="rounded-xl bg-white p-6 shadow-sm">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                    {t('teachers.bookOnboarding')}
+                  </h2>
+
+                  {bookingError && (
+                    <div className="mb-4 rounded bg-red-50 p-3 text-sm text-red-600">
+                      {bookingError}
+                    </div>
+                  )}
+
+                  <form onSubmit={handleBooking} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        {t('teachers.selectSlot')}
+                      </label>
+                      <select
+                        value={selectedSlotId}
+                        onChange={(e) => setSelectedSlotId(e.target.value)}
+                        required
+                        className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      >
+                        <option value="">--</option>
+                        {teacher.availabilitySlots.map((slot) => (
+                          <option key={slot.id} value={slot.id}>
+                            {tDays(String(slot.dayOfWeek))} {slot.startTime} –{' '}
+                            {slot.endTime}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        {t('teachers.selectDate')}
+                      </label>
+                      <input
+                        type="date"
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        required
+                        min={new Date().toISOString().split('T')[0]}
+                        className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        {t('teachers.notesPlaceholder')}
+                      </label>
+                      <textarea
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                        maxLength={500}
+                        rows={3}
+                        className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      />
+                    </div>
+
+                    <div className="flex gap-3">
+                      <button
+                        type="submit"
+                        disabled={bookMutation.isPending}
+                        className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                      >
+                        {t('teachers.confirmBooking')}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowBookingForm(false)}
+                        className="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        {t('common.cancel')}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )
+            ) : null}
           </div>
         )}
       </div>

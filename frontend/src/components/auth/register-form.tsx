@@ -33,7 +33,7 @@ export function RegisterForm() {
         role,
       });
       setAccessToken(data.accessToken);
-      router.push(role === 'TEACHER' ? '/dashboard/teacher' : '/');
+      router.push(role === 'TEACHER' ? '/dashboard/teacher' : '/dashboard/student');
     } catch (err: unknown) {
       const axiosErr = err as { response?: { status?: number } };
       setError(

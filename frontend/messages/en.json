@@ -71,7 +71,13 @@
     "profileIncomplete": "Profile incomplete",
     "slotsCount": "{count} slots",
     "groups": "Groups",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "calls": "Discovery calls",
+    "noCalls": "No calls received",
+    "confirmCall": "Confirm",
+    "cancelCall": "Cancel",
+    "callConfirmed": "Call confirmed",
+    "callCancelled": "Call cancelled"
   },
   "teachers": {
     "browseTitle": "Find a teacher",
@@ -85,7 +91,15 @@
     "memberSince": "Member since {date}",
     "availableSlots": "Available slots",
     "bookOnboarding": "Book a discovery call",
-    "bookingSoon": "Booking coming soon"
+    "bookingSoon": "Booking coming soon",
+    "selectSlot": "Choose a slot",
+    "selectDate": "Choose a date",
+    "confirmBooking": "Confirm booking",
+    "notesPlaceholder": "Describe your goals (optional)...",
+    "loginToBook": "Log in to book",
+    "noSlotsAvailable": "No slots available",
+    "bookingConfirmed": "Your call has been booked!",
+    "slotAlreadyBooked": "This slot is already booked"
   },
   "days": {
     "0": "Monday",
@@ -109,5 +123,72 @@
     "adults": "Adults",
     "workers": "Professionals",
     "elderly": "Seniors"
+  },
+  "student": {
+    "dashboard": "Dashboard",
+    "welcome": "Welcome, {name}",
+    "myCalls": "My calls",
+    "myGroups": "My groups",
+    "upcomingCalls": "Upcoming calls",
+    "activeGroups": "Active groups",
+    "noCallsYet": "No calls booked yet",
+    "noGroupsYet": "No groups joined yet",
+    "cancelCall": "Cancel call",
+    "callCancelled": "Call cancelled",
+    "leaveGroup": "Leave group",
+    "leftGroup": "Group left",
+    "callStatus": {
+      "PENDING": "Pending",
+      "CONFIRMED": "Confirmed",
+      "DONE": "Done",
+      "CANCELLED": "Cancelled"
+    },
+    "membershipStatus": {
+      "PENDING": "Pending",
+      "ACTIVE": "Active",
+      "LEFT": "Left",
+      "REMOVED": "Removed"
+    }
+  },
+  "groups": {
+    "browseTitle": "Available groups",
+    "create": "Create a group",
+    "createTitle": "New group",
+    "name": "Group name",
+    "language": "Language",
+    "level": "Level",
+    "audienceType": "Audience",
+    "maxStudents": "Max students",
+    "pricePerSession": "Price per session (DT)",
+    "groupCreated": "Group created",
+    "groupUpdated": "Group updated",
+    "groupDeactivated": "Group deactivated",
+    "members": "Members",
+    "membersCount": "{count} / {max} members",
+    "noGroups": "No groups created",
+    "approve": "Approve",
+    "remove": "Remove",
+    "memberApproved": "Member approved",
+    "memberRemoved": "Member removed",
+    "joinGroup": "Join this group",
+    "joinRequested": "Request sent",
+    "groupFull": "Group full",
+    "allLevels": "All levels",
+    "availableSpots": "{count} spot(s) available",
+    "deactivate": "Deactivate",
+    "manageMembers": "Manage members",
+    "noMembers": "No members",
+    "teacherName": "Teacher",
+    "noResults": "No groups found",
+    "viewDetails": "View details",
+    "priceLabel": "Price per session"
+  },
+  "levelOptions": {
+    "A1": "A1 — Beginner",
+    "A2": "A2 — Elementary",
+    "B1": "B1 — Intermediate",
+    "B2": "B2 — Upper intermediate",
+    "C1": "C1 — Advanced",
+    "C2": "C2 — Mastery"
   }
 }
