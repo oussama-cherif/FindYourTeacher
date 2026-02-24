@@ -78,7 +78,8 @@
     "cancelCall": "Annuler",
     "callConfirmed": "Appel confirmé",
     "callCancelled": "Appel annulé",
-    "dismissCall": "Masquer"
+    "dismissCall": "Masquer",
+    "sessions": "Séances"
   },
   "teachers": {
     "browseTitle": "Trouver un professeur",
@@ -151,7 +152,10 @@
       "ACTIVE": "Actif",
       "LEFT": "Quitté",
       "REMOVED": "Retiré"
-    }
+    },
+    "mySessions": "Mes séances",
+    "upcomingSessions": "Séances à venir",
+    "noSessions": "Aucune séance disponible"
   },
   "groups": {
     "browseTitle": "Groupes disponibles",
@@ -185,6 +189,39 @@
     "noResults": "Aucun groupe trouvé",
     "viewDetails": "Voir les détails",
     "priceLabel": "Prix par séance"
+  },
+  "sessions": {
+    "schedule": "Planifier une séance",
+    "scheduleTitle": "Nouvelle séance",
+    "selectGroup": "Sélectionner un groupe",
+    "dateTime": "Date et heure",
+    "duration": "Durée",
+    "durationMinutes": "{count} minutes",
+    "upcoming": "À venir",
+    "past": "Passées",
+    "noSessions": "Aucune séance planifiée",
+    "sessionScheduled": "Séance planifiée",
+    "sessionStarted": "Séance démarrée",
+    "sessionEnded": "Séance terminée",
+    "sessionCancelled": "Séance annulée",
+    "sessionDeleted": "Séance supprimée",
+    "startSession": "Démarrer",
+    "endSession": "Terminer la séance",
+    "cancelSession": "Annuler",
+    "deleteSession": "Supprimer",
+    "joinSession": "Rejoindre la séance",
+    "scheduledFor": "Prévue le {date}",
+    "group": "Groupe",
+    "status": {
+      "SCHEDULED": "Planifiée",
+      "LIVE": "En cours",
+      "DONE": "Terminée",
+      "CANCELLED": "Annulée"
+    },
+    "notStarted": "Cette séance n'a pas encore commencé",
+    "ended": "Cette séance est terminée",
+    "cancelled": "Cette séance a été annulée",
+    "liveNow": "Séance en cours"
   },
   "levelOptions": {
     "A1": "A1 — Débutant",

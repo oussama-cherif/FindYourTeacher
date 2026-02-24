@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { TeachersModule } from './teachers/teachers.module';
 import { OnboardingModule } from './onboarding/onboarding.module';
 import { GroupsModule } from './groups/groups.module';
+import { SessionsModule } from './sessions/sessions.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { GroupsModule } from './groups/groups.module';
     TeachersModule,
     OnboardingModule,
     GroupsModule,
+    SessionsModule,
   ],
   providers: [
     {

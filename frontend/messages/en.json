@@ -78,7 +78,8 @@
     "cancelCall": "Cancel",
     "callConfirmed": "Call confirmed",
     "callCancelled": "Call cancelled",
-    "dismissCall": "Dismiss"
+    "dismissCall": "Dismiss",
+    "sessions": "Sessions"
   },
   "teachers": {
     "browseTitle": "Find a teacher",
@@ -151,7 +152,10 @@
       "ACTIVE": "Active",
       "LEFT": "Left",
       "REMOVED": "Removed"
-    }
+    },
+    "mySessions": "My sessions",
+    "upcomingSessions": "Upcoming sessions",
+    "noSessions": "No sessions available"
   },
   "groups": {
     "browseTitle": "Available groups",
@@ -185,6 +189,39 @@
     "noResults": "No groups found",
     "viewDetails": "View details",
     "priceLabel": "Price per session"
+  },
+  "sessions": {
+    "schedule": "Schedule a session",
+    "scheduleTitle": "New session",
+    "selectGroup": "Select a group",
+    "dateTime": "Date and time",
+    "duration": "Duration",
+    "durationMinutes": "{count} minutes",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "noSessions": "No sessions scheduled",
+    "sessionScheduled": "Session scheduled",
+    "sessionStarted": "Session started",
+    "sessionEnded": "Session ended",
+    "sessionCancelled": "Session cancelled",
+    "sessionDeleted": "Session deleted",
+    "startSession": "Start",
+    "endSession": "End session",
+    "cancelSession": "Cancel",
+    "deleteSession": "Delete",
+    "joinSession": "Join session",
+    "scheduledFor": "Scheduled for {date}",
+    "group": "Group",
+    "status": {
+      "SCHEDULED": "Scheduled",
+      "LIVE": "Live",
+      "DONE": "Done",
+      "CANCELLED": "Cancelled"
+    },
+    "notStarted": "This session hasn't started yet",
+    "ended": "This session has ended",
+    "cancelled": "This session was cancelled",
+    "liveNow": "Session is live"
   },
   "levelOptions": {
     "A1": "A1 — Beginner",

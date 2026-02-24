@@ -25,6 +25,15 @@ export default function TeacherDashboardPage() {
 
   const groups = groupsData?.groups;
 
+  const { data: sessions } = useQuery<{ status: string }[]>({
+    queryKey: ['teacher', 'sessions'],
+    queryFn: () => api.get('/sessions/teacher').then((r) => r.data),
+  });
+
+  const upcomingSessions = sessions?.filter(
+    (s) => s.status === 'SCHEDULED' || s.status === 'LIVE',
+  ) ?? [];
+
   const isProfileComplete =
     profile?.bio && profile?.languages?.length > 0 && profile?.audienceTypes?.length > 0;
 
@@ -84,6 +93,22 @@ export default function TeacherDashboardPage() {
             className="mt-4 inline-block text-sm text-blue-600 hover:underline"
           >
             {t('groups.manageMembers')}
+          </Link>
+        </div>
+
+        {/* Sessions card */}
+        <div className="rounded-xl bg-white p-6 shadow-sm">
+          <h3 className="text-sm font-medium text-gray-500">
+            {t('teacher.sessions')}
+          </h3>
+          <p className="mt-2 text-lg font-semibold text-gray-900">
+            {upcomingSessions.length} {t('sessions.upcoming').toLowerCase()}
+          </p>
+          <Link
+            href="/dashboard/teacher/sessions"
+            className="mt-4 inline-block text-sm text-blue-600 hover:underline"
+          >
+            {t('teacher.sessions')}
           </Link>
         </div>
       </div>

@@ -87,6 +87,12 @@ export default function StudentDashboardLayout({
             >
               {t('student.myGroups')}
             </Link>
+            <Link
+              href="/dashboard/student/sessions"
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            >
+              {t('student.mySessions')}
+            </Link>
           </nav>
         </aside>
 
