@@ -32,10 +32,12 @@ export function TeacherGroupsManager() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const { data: groups, isLoading } = useQuery<Group[]>({
+  const { data: groupsResponse, isLoading } = useQuery<{ groups: Group[]; pendingMemberships: number }>({
     queryKey: ['teacher', 'groups'],
     queryFn: () => api.get('/groups/teacher').then((r) => r.data),
   });
+
+  const groups = groupsResponse?.groups;
 
   const createMutation = useMutation({
     mutationFn: (data: Record<string, unknown>) => api.post('/groups', data),

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useQuery } from '@tanstack/react-query';
 import { Link, useRouter } from '@/i18n/navigation';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import api from '@/lib/api';
@@ -17,6 +18,7 @@ export default function TeacherDashboardLayout({
     null,
   );
   const [loading, setLoading] = useState(true);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     api
@@ -28,11 +30,36 @@ export default function TeacherDashboardLayout({
         }
         setUser(data);
         setLoading(false);
+        setReady(true);
       })
       .catch(() => {
         router.push('/login');
       });
   }, [router]);
+
+  const { data: calls } = useQuery({
+    queryKey: ['teacher', 'calls', 'badge'],
+    queryFn: () => api.get('/onboarding/teacher').then((r) => r.data),
+    enabled: ready,
+    refetchInterval: 30000,
+  });
+
+  const pendingCalls = calls?.filter(
+    (c: { status: string }) => c.status === 'PENDING',
+  ).length ?? 0;
+
+  const confirmedCalls = calls?.filter(
+    (c: { status: string }) => c.status === 'CONFIRMED',
+  ).length ?? 0;
+
+  const { data: groupsData } = useQuery({
+    queryKey: ['teacher', 'groups', 'badge'],
+    queryFn: () => api.get('/groups/teacher').then((r) => r.data),
+    enabled: ready,
+    refetchInterval: 30000,
+  });
+
+  const pendingMemberships = groupsData?.pendingMemberships ?? 0;
 
   if (loading) {
     return (
@@ -89,15 +116,32 @@ export default function TeacherDashboardLayout({
             </Link>
             <Link
               href="/dashboard/teacher/calls"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+              className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
-              {t('teacher.calls')}
+              <span>{t('teacher.calls')}</span>
+              <span className="flex items-center gap-1">
+                {pendingCalls > 0 && (
+                  <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white">
+                    {pendingCalls}
+                  </span>
+                )}
+                {confirmedCalls > 0 && (
+                  <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-yellow-400 px-1.5 text-xs font-bold text-gray-900">
+                    {confirmedCalls}
+                  </span>
+                )}
+              </span>
             </Link>
             <Link
               href="/dashboard/teacher/groups"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+              className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
-              {t('teacher.groups')}
+              <span>{t('teacher.groups')}</span>
+              {pendingMemberships > 0 && (
+                <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white">
+                  {pendingMemberships}
+                </span>
+              )}
             </Link>
           </nav>
         </aside>

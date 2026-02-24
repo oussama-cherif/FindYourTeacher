@@ -47,7 +47,7 @@ export class GroupsService {
   async getTeacherGroups(userId: string) {
     const profileId = await this.resolveTeacherProfileId(userId);
 
-    return this.prisma.group.findMany({
+    const groups = await this.prisma.group.findMany({
       where: { teacherId: profileId, isActive: true },
       include: {
         _count: {
@@ -58,6 +58,15 @@ export class GroupsService {
       },
       orderBy: { name: 'asc' },
     });
+
+    const pendingCount = await this.prisma.groupMembership.count({
+      where: {
+        status: 'PENDING',
+        group: { teacherId: profileId, isActive: true },
+      },
+    });
+
+    return { groups, pendingMemberships: pendingCount };
   }
 
   async updateGroup(userId: string, groupId: string, dto: UpdateGroupDto) {

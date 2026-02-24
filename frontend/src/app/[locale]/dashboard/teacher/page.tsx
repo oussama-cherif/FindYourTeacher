@@ -18,10 +18,12 @@ export default function TeacherDashboardPage() {
     queryFn: () => api.get('/teachers/availability').then((r) => r.data),
   });
 
-  const { data: groups } = useQuery({
+  const { data: groupsData } = useQuery({
     queryKey: ['teacher', 'groups'],
     queryFn: () => api.get('/groups/teacher').then((r) => r.data),
   });
+
+  const groups = groupsData?.groups;
 
   const isProfileComplete =
     profile?.bio && profile?.languages?.length > 0 && profile?.audienceTypes?.length > 0;
