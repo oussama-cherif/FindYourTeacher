@@ -11,7 +11,13 @@
     "submit": "Envoyer",
     "loading": "Chargement...",
     "error": "Une erreur est survenue",
-    "switchLanguage": "English"
+    "switchLanguage": "English",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent"
   },
   "landing": {
     "heroTitle": "Apprenez une nouvelle langue avec les meilleurs professeurs tunisiens",
@@ -38,5 +44,70 @@
     "emailTaken": "Cet email est déjà utilisé",
     "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
     "registerSuccess": "Compte créé avec succès"
+  },
+  "teacher": {
+    "dashboard": "Tableau de bord",
+    "welcome": "Bienvenue, {name}",
+    "profile": "Mon profil",
+    "editProfile": "Modifier mon profil",
+    "bio": "Biographie",
+    "bioPlaceholder": "Présentez-vous à vos futurs élèves...",
+    "languages": "Langues enseignées",
+    "audienceTypes": "Public cible",
+    "saveProfile": "Enregistrer le profil",
+    "profileSaved": "Profil mis à jour avec succès",
+    "availability": "Disponibilités",
+    "manageAvailability": "Gérer mes disponibilités",
+    "addSlot": "Ajouter un créneau",
+    "deleteSlot": "Supprimer ce créneau",
+    "dayOfWeek": "Jour",
+    "startTime": "Heure de début",
+    "endTime": "Heure de fin",
+    "noSlots": "Aucun créneau configuré",
+    "overlapError": "Ce créneau chevauche un créneau existant",
+    "slotCreated": "Créneau ajouté",
+    "slotDeleted": "Créneau supprimé",
+    "profileComplete": "Profil complété",
+    "profileIncomplete": "Profil à compléter",
+    "slotsCount": "{count} créneaux",
+    "groups": "Groupes",
+    "comingSoon": "Bientôt disponible"
+  },
+  "teachers": {
+    "browseTitle": "Trouver un professeur",
+    "filterLanguage": "Langue",
+    "filterAudience": "Public",
+    "allLanguages": "Toutes les langues",
+    "allAudiences": "Tous les publics",
+    "noResults": "Aucun professeur trouvé",
+    "viewProfile": "Voir le profil",
+    "recommendations": "{count} recommandation(s)",
+    "memberSince": "Membre depuis {date}",
+    "availableSlots": "Créneaux disponibles",
+    "bookOnboarding": "Réserver un appel découverte",
+    "bookingSoon": "Réservation bientôt disponible"
+  },
+  "days": {
+    "0": "Lundi",
+    "1": "Mardi",
+    "2": "Mercredi",
+    "3": "Jeudi",
+    "4": "Vendredi",
+    "5": "Samedi",
+    "6": "Dimanche"
+  },
+  "languageOptions": {
+    "french": "Français",
+    "english": "Anglais",
+    "arabic": "Arabe",
+    "german": "Allemand",
+    "spanish": "Espagnol",
+    "italian": "Italien"
+  },
+  "audienceOptions": {
+    "kids": "Enfants",
+    "adults": "Adultes",
+    "workers": "Professionnels",
+    "elderly": "Seniors"
   }
 }

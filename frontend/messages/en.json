@@ -11,7 +11,13 @@
     "submit": "Submit",
     "loading": "Loading...",
     "error": "An error occurred",
-    "switchLanguage": "Français"
+    "switchLanguage": "Français",
+    "save": "Save",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
   },
   "landing": {
     "heroTitle": "Learn a new language with the best Tunisian teachers",
@@ -38,5 +44,70 @@
     "emailTaken": "This email is already in use",
     "passwordMinLength": "Password must be at least 8 characters",
     "registerSuccess": "Account created successfully"
+  },
+  "teacher": {
+    "dashboard": "Dashboard",
+    "welcome": "Welcome, {name}",
+    "profile": "My profile",
+    "editProfile": "Edit my profile",
+    "bio": "Biography",
+    "bioPlaceholder": "Introduce yourself to your future students...",
+    "languages": "Languages taught",
+    "audienceTypes": "Target audience",
+    "saveProfile": "Save profile",
+    "profileSaved": "Profile updated successfully",
+    "availability": "Availability",
+    "manageAvailability": "Manage my availability",
+    "addSlot": "Add a slot",
+    "deleteSlot": "Delete this slot",
+    "dayOfWeek": "Day",
+    "startTime": "Start time",
+    "endTime": "End time",
+    "noSlots": "No slots configured",
+    "overlapError": "This slot overlaps with an existing one",
+    "slotCreated": "Slot added",
+    "slotDeleted": "Slot deleted",
+    "profileComplete": "Profile complete",
+    "profileIncomplete": "Profile incomplete",
+    "slotsCount": "{count} slots",
+    "groups": "Groups",
+    "comingSoon": "Coming soon"
+  },
+  "teachers": {
+    "browseTitle": "Find a teacher",
+    "filterLanguage": "Language",
+    "filterAudience": "Audience",
+    "allLanguages": "All languages",
+    "allAudiences": "All audiences",
+    "noResults": "No teachers found",
+    "viewProfile": "View profile",
+    "recommendations": "{count} recommendation(s)",
+    "memberSince": "Member since {date}",
+    "availableSlots": "Available slots",
+    "bookOnboarding": "Book a discovery call",
+    "bookingSoon": "Booking coming soon"
+  },
+  "days": {
+    "0": "Monday",
+    "1": "Tuesday",
+    "2": "Wednesday",
+    "3": "Thursday",
+    "4": "Friday",
+    "5": "Saturday",
+    "6": "Sunday"
+  },
+  "languageOptions": {
+    "french": "French",
+    "english": "English",
+    "arabic": "Arabic",
+    "german": "German",
+    "spanish": "Spanish",
+    "italian": "Italian"
+  },
+  "audienceOptions": {
+    "kids": "Kids",
+    "adults": "Adults",
+    "workers": "Professionals",
+    "elderly": "Seniors"
   }
 }

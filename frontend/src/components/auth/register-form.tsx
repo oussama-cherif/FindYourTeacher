@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import api, { setAccessToken } from '@/lib/api';
@@ -8,6 +9,8 @@ import api, { setAccessToken } from '@/lib/api';
 export function RegisterForm() {
   const t = useTranslations();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const defaultRole = searchParams.get('role') === 'teacher' ? 'TEACHER' : 'STUDENT';
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +33,7 @@ export function RegisterForm() {
         role,
       });
       setAccessToken(data.accessToken);
-      router.push('/');
+      router.push(role === 'TEACHER' ? '/dashboard/teacher' : '/');
     } catch (err: unknown) {
       const axiosErr = err as { response?: { status?: number } };
       setError(
@@ -107,7 +110,7 @@ export function RegisterForm() {
               type="radio"
               name="role"
               value="STUDENT"
-              defaultChecked
+              defaultChecked={defaultRole === 'STUDENT'}
               className="text-blue-600 focus:ring-blue-500"
             />
             <span className="text-sm text-gray-700">
@@ -119,6 +122,7 @@ export function RegisterForm() {
               type="radio"
               name="role"
               value="TEACHER"
+              defaultChecked={defaultRole === 'TEACHER'}
               className="text-blue-600 focus:ring-blue-500"
             />
             <span className="text-sm text-gray-700">

@@ -23,7 +23,9 @@ export function LoginForm() {
     try {
       const { data } = await api.post('/auth/login', { email, password });
       setAccessToken(data.accessToken);
-      router.push('/');
+      // Decode JWT payload to get role for redirect
+      const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
+      router.push(payload.role === 'TEACHER' ? '/dashboard/teacher' : '/');
     } catch (err: unknown) {
       const axiosErr = err as { response?: { status?: number } };
       setError(
