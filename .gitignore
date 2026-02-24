@@ -37,3 +37,6 @@ Thumbs.db
 # AI session files
 CLAUDE.md
 .claude/
+
+# Personal notes
+NOTES.md
