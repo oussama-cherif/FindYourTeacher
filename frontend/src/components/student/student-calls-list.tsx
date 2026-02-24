@@ -20,6 +20,20 @@ const STATUS_COLORS: Record<string, string> = {
   CANCELLED: 'bg-red-100 text-red-800',
 };
 
+const CARD_BORDER: Record<string, string> = {
+  PENDING: '',
+  CONFIRMED: 'border-l-4 border-l-green-500',
+  DONE: '',
+  CANCELLED: 'border-l-4 border-l-red-400',
+};
+
+const STATUS_ORDER: Record<string, number> = {
+  CONFIRMED: 0,
+  PENDING: 1,
+  DONE: 2,
+  CANCELLED: 3,
+};
+
 export function StudentCallsList() {
   const t = useTranslations();
   const tDays = useTranslations('days');
@@ -46,13 +60,28 @@ export function StudentCallsList() {
     return <p className="text-gray-500">{t('student.noCallsYet')}</p>;
   }
 
+  const sorted = [...calls].sort(
+    (a, b) => (STATUS_ORDER[a.status] ?? 9) - (STATUS_ORDER[b.status] ?? 9),
+  );
+
   return (
     <div className="space-y-4">
-      {calls.map((call) => (
+      {sorted.map((call) => (
         <div
           key={call.id}
-          className="rounded-xl bg-white p-6 shadow-sm"
+          className={`rounded-xl bg-white p-6 shadow-sm ${CARD_BORDER[call.status] ?? ''}`}
         >
+          {call.status === 'CONFIRMED' && (
+            <div className="mb-3 rounded bg-green-50 px-3 py-2 text-sm text-green-700">
+              {t('student.callConfirmedBanner')}
+            </div>
+          )}
+          {call.status === 'CANCELLED' && (
+            <div className="mb-3 rounded bg-red-50 px-3 py-2 text-sm text-red-700">
+              {t('student.callCancelledBanner')}
+            </div>
+          )}
+
           <div className="flex items-start justify-between">
             <div>
               <div className="flex items-center gap-3">

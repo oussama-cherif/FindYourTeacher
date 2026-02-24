@@ -87,7 +87,7 @@ export class OnboardingService {
 
   async getTeacherCalls(teacherId: string) {
     return this.prisma.onboardingCall.findMany({
-      where: { teacherId },
+      where: { teacherId, dismissedByTeacher: false },
       orderBy: { scheduledAt: 'asc' },
       select: {
         id: true,
@@ -138,6 +138,31 @@ export class OnboardingService {
     return this.prisma.onboardingCall.update({
       where: { id: callId },
       data: { status: dto.status },
+    });
+  }
+
+  async dismissCall(callId: string, teacherId: string) {
+    const call = await this.prisma.onboardingCall.findUnique({
+      where: { id: callId },
+    });
+
+    if (!call) {
+      throw new NotFoundException('Call not found');
+    }
+
+    if (call.teacherId !== teacherId) {
+      throw new ForbiddenException('Not your call');
+    }
+
+    if (call.status === 'PENDING' || call.status === 'CONFIRMED') {
+      throw new BadRequestException(
+        'Cannot dismiss active calls. Cancel them first.',
+      );
+    }
+
+    return this.prisma.onboardingCall.update({
+      where: { id: callId },
+      data: { dismissedByTeacher: true },
     });
   }
 

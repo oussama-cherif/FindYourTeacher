@@ -77,7 +77,8 @@
     "confirmCall": "Confirm",
     "cancelCall": "Cancel",
     "callConfirmed": "Call confirmed",
-    "callCancelled": "Call cancelled"
+    "callCancelled": "Call cancelled",
+    "dismissCall": "Dismiss"
   },
   "teachers": {
     "browseTitle": "Find a teacher",
@@ -135,6 +136,8 @@
     "noGroupsYet": "No groups joined yet",
     "cancelCall": "Cancel call",
     "callCancelled": "Call cancelled",
+    "callConfirmedBanner": "The teacher has confirmed your call!",
+    "callCancelledBanner": "This call was cancelled by the teacher.",
     "leaveGroup": "Leave group",
     "leftGroup": "Group left",
     "callStatus": {

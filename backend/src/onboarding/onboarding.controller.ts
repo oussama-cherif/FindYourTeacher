@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   Post,
   Patch,
@@ -64,5 +65,15 @@ export class OnboardingController {
     @Param('id', ParseUUIDPipe) callId: string,
   ) {
     return this.onboardingService.cancelCallAsStudent(callId, studentId);
+  }
+
+  @Delete(':id/dismiss')
+  @UseGuards(JwtAccessGuard, RolesGuard)
+  @Roles(UserRole.TEACHER)
+  dismissCall(
+    @CurrentUser('sub') teacherId: string,
+    @Param('id', ParseUUIDPipe) callId: string,
+  ) {
+    return this.onboardingService.dismissCall(callId, teacherId);
   }
 }

@@ -38,12 +38,22 @@ export function TeacherCallsList() {
       api.patch(`/onboarding/${callId}/status`, { status }),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['teacher', 'calls'] });
+      queryClient.invalidateQueries({ queryKey: ['teacher', 'calls', 'badge'] });
       setSuccess(
         variables.status === 'CONFIRMED'
           ? t('teacher.callConfirmed')
           : t('teacher.callCancelled'),
       );
       setTimeout(() => setSuccess(''), 3000);
+    },
+  });
+
+  const dismissMutation = useMutation({
+    mutationFn: (callId: string) =>
+      api.delete(`/onboarding/${callId}/dismiss`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['teacher', 'calls'] });
+      queryClient.invalidateQueries({ queryKey: ['teacher', 'calls', 'badge'] });
     },
   });
 
@@ -124,6 +134,16 @@ export function TeacherCallsList() {
                       {t('teacher.cancelCall')}
                     </button>
                   </div>
+                )}
+                {(call.status === 'DONE' || call.status === 'CANCELLED') && (
+                  <button
+                    onClick={() => dismissMutation.mutate(call.id)}
+                    disabled={dismissMutation.isPending}
+                    className="text-xs text-gray-400 hover:text-gray-600 disabled:opacity-50 transition-colors"
+                    title={t('teacher.dismissCall')}
+                  >
+                    {t('teacher.dismissCall')}
+                  </button>
                 )}
               </div>
             </div>

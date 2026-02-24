@@ -77,7 +77,8 @@
     "confirmCall": "Confirmer",
     "cancelCall": "Annuler",
     "callConfirmed": "Appel confirmé",
-    "callCancelled": "Appel annulé"
+    "callCancelled": "Appel annulé",
+    "dismissCall": "Masquer"
   },
   "teachers": {
     "browseTitle": "Trouver un professeur",
@@ -135,6 +136,8 @@
     "noGroupsYet": "Aucun groupe rejoint",
     "cancelCall": "Annuler l'appel",
     "callCancelled": "Appel annulé",
+    "callConfirmedBanner": "Le professeur a confirmé votre appel !",
+    "callCancelledBanner": "Cet appel a été annulé par le professeur.",
     "leaveGroup": "Quitter le groupe",
     "leftGroup": "Groupe quitté",
     "callStatus": {

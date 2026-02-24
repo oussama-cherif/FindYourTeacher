@@ -118,13 +118,14 @@ model AvailabilitySlot {
 // ─── Onboarding Calls ───────────────────────────────────────────
 
 model OnboardingCall {
-  id           String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  studentId    String               @map("student_id") @db.Uuid
-  teacherId    String               @map("teacher_id") @db.Uuid
-  slotId       String               @map("slot_id") @db.Uuid
-  scheduledAt  DateTime             @map("scheduled_at") @db.Timestamptz
-  status       OnboardingCallStatus @default(PENDING)
-  studentNotes String?              @map("student_notes")
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  studentId          String               @map("student_id") @db.Uuid
+  teacherId          String               @map("teacher_id") @db.Uuid
+  slotId             String               @map("slot_id") @db.Uuid
+  scheduledAt        DateTime             @map("scheduled_at") @db.Timestamptz
+  status             OnboardingCallStatus @default(PENDING)
+  studentNotes       String?              @map("student_notes")
+  dismissedByTeacher Boolean              @default(false) @map("dismissed_by_teacher")
 
   student User             @relation("StudentCalls", fields: [studentId], references: [id], onDelete: Cascade)
   teacher User             @relation("TeacherCalls", fields: [teacherId], references: [id], onDelete: Cascade)
