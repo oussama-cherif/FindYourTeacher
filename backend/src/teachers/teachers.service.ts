@@ -215,7 +215,6 @@ export class TeachersService {
           },
         },
         availabilitySlots: {
-          where: { isBooked: false },
           orderBy: [{ dayOfWeek: 'asc' }, { startTime: 'asc' }],
           select: {
             id: true,

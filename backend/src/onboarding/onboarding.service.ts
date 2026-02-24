@@ -26,44 +26,44 @@ export class OnboardingService {
       throw new BadRequestException('Slot does not belong to this teacher');
     }
 
-    if (slot.isBooked) {
-      throw new ConflictException('Slot is already booked');
-    }
-
     if (slot.teacherId === studentId) {
       throw new ForbiddenException('Cannot book your own slot');
     }
 
-    const [call] = await this.prisma.$transaction([
-      this.prisma.onboardingCall.create({
-        data: {
-          studentId,
-          teacherId: dto.teacherId,
-          slotId: dto.slotId,
-          scheduledAt: new Date(dto.scheduledAt),
-          studentNotes: dto.studentNotes,
-          status: 'PENDING',
-        },
-        select: {
-          id: true,
-          scheduledAt: true,
-          status: true,
-          studentNotes: true,
-          slot: {
-            select: { dayOfWeek: true, startTime: true, endTime: true },
-          },
-          teacher: {
-            select: { id: true, fullName: true, avatarUrl: true },
-          },
-        },
-      }),
-      this.prisma.availabilitySlot.update({
-        where: { id: dto.slotId },
-        data: { isBooked: true },
-      }),
-    ]);
+    const existing = await this.prisma.onboardingCall.findFirst({
+      where: {
+        studentId,
+        slotId: dto.slotId,
+        status: { in: ['PENDING', 'CONFIRMED'] },
+      },
+    });
 
-    return call;
+    if (existing) {
+      throw new ConflictException('You already have an active booking for this slot');
+    }
+
+    return this.prisma.onboardingCall.create({
+      data: {
+        studentId,
+        teacherId: dto.teacherId,
+        slotId: dto.slotId,
+        scheduledAt: new Date(dto.scheduledAt),
+        studentNotes: dto.studentNotes,
+        status: 'PENDING',
+      },
+      select: {
+        id: true,
+        scheduledAt: true,
+        status: true,
+        studentNotes: true,
+        slot: {
+          select: { dayOfWeek: true, startTime: true, endTime: true },
+        },
+        teacher: {
+          select: { id: true, fullName: true, avatarUrl: true },
+        },
+      },
+    });
   }
 
   async getStudentCalls(studentId: string) {
@@ -121,20 +121,6 @@ export class OnboardingService {
       throw new ForbiddenException('Not your call');
     }
 
-    if (dto.status === 'CANCELLED') {
-      const [updated] = await this.prisma.$transaction([
-        this.prisma.onboardingCall.update({
-          where: { id: callId },
-          data: { status: 'CANCELLED' },
-        }),
-        this.prisma.availabilitySlot.update({
-          where: { id: call.slotId },
-          data: { isBooked: false },
-        }),
-      ]);
-      return updated;
-    }
-
     return this.prisma.onboardingCall.update({
       where: { id: callId },
       data: { status: dto.status },
@@ -183,17 +169,9 @@ export class OnboardingService {
       throw new BadRequestException('Only PENDING calls can be cancelled');
     }
 
-    const [updated] = await this.prisma.$transaction([
-      this.prisma.onboardingCall.update({
-        where: { id: callId },
-        data: { status: 'CANCELLED' },
-      }),
-      this.prisma.availabilitySlot.update({
-        where: { id: call.slotId },
-        data: { isBooked: false },
-      }),
-    ]);
-
-    return updated;
+    return this.prisma.onboardingCall.update({
+      where: { id: callId },
+      data: { status: 'CANCELLED' },
+    });
   }
 }

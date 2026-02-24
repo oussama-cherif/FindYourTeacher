@@ -107,7 +107,6 @@ model AvailabilitySlot {
   dayOfWeek Int     @map("day_of_week") // 0=Monday .. 6=Sunday
   startTime String  @map("start_time") // "14:00"
   endTime   String  @map("end_time") // "15:00"
-  isBooked  Boolean @default(false) @map("is_booked")
 
   teacher         User             @relation(fields: [teacherId], references: [id], onDelete: Cascade)
   onboardingCalls OnboardingCall[]
