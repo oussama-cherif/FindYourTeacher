@@ -79,7 +79,8 @@
     "callConfirmed": "Call confirmed",
     "callCancelled": "Call cancelled",
     "dismissCall": "Dismiss",
-    "sessions": "Sessions"
+    "sessions": "Sessions",
+    "earnings": "Earnings"
   },
   "teachers": {
     "browseTitle": "Find a teacher",
@@ -155,7 +156,10 @@
     },
     "mySessions": "My sessions",
     "upcomingSessions": "Upcoming sessions",
-    "noSessions": "No sessions available"
+    "noSessions": "No sessions available",
+    "myPayments": "Payments",
+    "pendingPayments": "Pending payments",
+    "noPaymentsYet": "No payments yet"
   },
   "groups": {
     "browseTitle": "Available groups",
@@ -221,7 +225,65 @@
     "notStarted": "This session hasn't started yet",
     "ended": "This session has ended",
     "cancelled": "This session was cancelled",
-    "liveNow": "Session is live"
+    "liveNow": "Session is live",
+    "noCredits": "You need credits to join this session",
+    "buyCreditsToJoin": "Buy credits"
+  },
+  "payments": {
+    "buyCredits": "Buy credits",
+    "credits": "Credits",
+    "selectCredits": "Number of sessions",
+    "creditCount": "{count} session(s)",
+    "totalAmount": "Total: {amount} DT",
+    "payNow": "Pay now",
+    "paymentSuccess": "Payment successful!",
+    "paymentFailed": "Payment failed",
+    "verifying": "Verifying payment...",
+    "yourCredits": "Your credits",
+    "remaining": "{count} remaining",
+    "used": "{count} used",
+    "earnings": "Earnings",
+    "totalEarned": "Total earned: {amount} DT",
+    "noPayments": "No payments yet",
+    "pendingPayment": "Pending",
+    "paidOn": "Paid on {date}",
+    "perSession": "per session",
+    "retryPayment": "Retry payment",
+    "paymentStatus": {
+      "PENDING": "Pending",
+      "PAID": "Paid",
+      "FAILED": "Failed",
+      "REFUNDED": "Refunded"
+    },
+    "groupCredits": "Credits for {group}",
+    "purchaseHistory": "Purchase history"
+  },
+  "recommendations": {
+    "leaveReview": "Leave a review",
+    "rating": "Rating",
+    "comment": "Comment",
+    "submitReview": "Submit review",
+    "reviewSubmitted": "Review submitted!",
+    "pendingApproval": "Your comment is pending approval",
+    "yourReviews": "Reviews",
+    "noReviews": "No reviews yet",
+    "averageRating": "Average rating",
+    "stars": "{count} star(s)",
+    "optional": "(optional)",
+    "commentPlaceholder": "Share your experience with this teacher...",
+    "ratingRequired": "Please provide at least a rating or comment",
+    "mustAttendSession": "You must attend at least one session to leave a review"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "pendingReviews": "Pending reviews",
+    "approve": "Approve",
+    "reject": "Reject",
+    "noReviewsPending": "No reviews pending",
+    "reviewApproved": "Review approved",
+    "reviewRejected": "Review rejected",
+    "studentName": "Student",
+    "teacherName": "Teacher"
   },
   "levelOptions": {
     "A1": "A1 — Beginner",

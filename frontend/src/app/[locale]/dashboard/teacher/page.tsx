@@ -111,6 +111,19 @@ export default function TeacherDashboardPage() {
             {t('teacher.sessions')}
           </Link>
         </div>
+
+        {/* Earnings card */}
+        <div className="rounded-xl bg-white p-6 shadow-sm">
+          <h3 className="text-sm font-medium text-gray-500">
+            {t('teacher.earnings')}
+          </h3>
+          <Link
+            href="/dashboard/teacher/payments"
+            className="mt-4 inline-block text-sm text-blue-600 hover:underline"
+          >
+            {t('teacher.earnings')}
+          </Link>
+        </div>
       </div>
     </div>
   );

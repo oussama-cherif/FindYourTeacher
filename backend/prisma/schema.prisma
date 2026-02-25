@@ -69,7 +69,7 @@ model User {
   onboardingCalls   OnboardingCall[]   @relation("StudentCalls")
   teacherCalls      OnboardingCall[]   @relation("TeacherCalls")
   groupMemberships  GroupMembership[]
-  sessionPayments   SessionPayment[]
+  sessionCredits    SessionCredit[]    @relation("StudentCredits")
   uploadedFiles     File[]
   recommendations   Recommendation[]   @relation("StudentRecommendations")
   receivedRecs      Recommendation[]   @relation("TeacherRecommendations")
@@ -90,6 +90,7 @@ model TeacherProfile {
   idDocUrl              String?            @map("id_doc_url")
   recommendationCount   Int                @default(0) @map("recommendation_count")
   hasStarBadge          Boolean            @default(false) @map("has_star_badge")
+  averageRating         Decimal?           @map("average_rating") @db.Decimal(2, 1)
   subscriptionStatus    SubscriptionStatus @default(ACTIVE) @map("subscription_status")
   subscriptionExpiresAt DateTime?          @map("subscription_expires_at") @db.Timestamptz
 
@@ -147,10 +148,11 @@ model Group {
   platformFee     Decimal @default(10.000) @map("platform_fee") @db.Decimal(10, 3)
   isActive        Boolean @default(true) @map("is_active")
 
-  teacher     TeacherProfile    @relation(fields: [teacherId], references: [id], onDelete: Cascade)
-  memberships GroupMembership[]
-  sessions    Session[]
-  files       File[]
+  teacher        TeacherProfile    @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  memberships    GroupMembership[]
+  sessions       Session[]
+  files          File[]
+  sessionCredits SessionCredit[]
 
   @@map("groups")
 }
@@ -182,29 +184,31 @@ model Session {
   status          SessionStatus @default(SCHEDULED)
   recordingUrl    String?       @map("recording_url")
 
-  group    Group            @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  payments SessionPayment[]
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
 
-// ─── Session Payments ───────────────────────────────────────────
+// ─── Session Credits ────────────────────────────────────────────
 
-model SessionPayment {
-  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  sessionId    String        @map("session_id") @db.Uuid
-  studentId    String        @map("student_id") @db.Uuid
-  amountPaid   Decimal       @map("amount_paid") @db.Decimal(10, 3)
-  platformFee  Decimal       @map("platform_fee") @db.Decimal(10, 3)
-  teacherNet   Decimal       @map("teacher_net") @db.Decimal(10, 3)
-  gatewayTxId  String?       @map("gateway_tx_id")
-  status       PaymentStatus @default(PENDING)
-  paidAt       DateTime?     @map("paid_at") @db.Timestamptz
+model SessionCredit {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  studentId       String        @map("student_id") @db.Uuid
+  groupId         String        @map("group_id") @db.Uuid
+  totalCredits    Int           @map("total_credits")
+  usedCredits     Int           @default(0) @map("used_credits")
+  amountPaid      Decimal       @map("amount_paid") @db.Decimal(10, 3)
+  platformFee     Decimal       @map("platform_fee") @db.Decimal(10, 3)
+  teacherNet      Decimal       @map("teacher_net") @db.Decimal(10, 3)
+  flouciPaymentId String?       @map("flouci_payment_id")
+  status          PaymentStatus @default(PENDING)
+  paidAt          DateTime?     @map("paid_at") @db.Timestamptz
+  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz
 
-  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-  student User    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  student User  @relation("StudentCredits", fields: [studentId], references: [id], onDelete: Cascade)
+  group   Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
-  @@map("session_payments")
+  @@map("session_credits")
 }
 
 // ─── Files ──────────────────────────────────────────────────────
@@ -227,11 +231,15 @@ model File {
 // ─── Recommendations ────────────────────────────────────────────
 
 model Recommendation {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  teacherId String   @map("teacher_id") @db.Uuid
-  studentId String   @map("student_id") @db.Uuid
-  comment   String?
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  teacherId  String    @map("teacher_id") @db.Uuid
+  studentId  String    @map("student_id") @db.Uuid
+  rating     Int?
+  comment    String?
+  approved   Boolean   @default(false)
+  approvedAt DateTime? @map("approved_at") @db.Timestamptz
+  approvedBy String?   @map("approved_by") @db.Uuid
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz
 
   teacher User @relation("TeacherRecommendations", fields: [teacherId], references: [id], onDelete: Cascade)
   student User @relation("StudentRecommendations", fields: [studentId], references: [id], onDelete: Cascade)

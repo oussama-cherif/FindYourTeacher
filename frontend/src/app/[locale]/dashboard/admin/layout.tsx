@@ -6,7 +6,7 @@ import { Link, useRouter } from '@/i18n/navigation';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import api from '@/lib/api';
 
-export default function StudentDashboardLayout({
+export default function AdminDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export default function StudentDashboardLayout({
     api
       .get('/users/me')
       .then(({ data }) => {
-        if (data.role !== 'STUDENT') {
+        if (data.role !== 'ADMIN') {
           router.push('/');
           return;
         }
@@ -70,34 +70,16 @@ export default function StudentDashboardLayout({
         <aside className="w-64 border-r border-gray-200 bg-white min-h-[calc(100vh-65px)] p-4">
           <nav className="space-y-1">
             <Link
-              href="/dashboard/student"
+              href="/dashboard/admin"
               className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
-              {t('student.dashboard')}
+              {t('admin.dashboard')}
             </Link>
             <Link
-              href="/dashboard/student/calls"
+              href="/dashboard/admin/reviews"
               className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
-              {t('student.myCalls')}
-            </Link>
-            <Link
-              href="/dashboard/student/groups"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-            >
-              {t('student.myGroups')}
-            </Link>
-            <Link
-              href="/dashboard/student/sessions"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-            >
-              {t('student.mySessions')}
-            </Link>
-            <Link
-              href="/dashboard/student/payments"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-            >
-              {t('student.myPayments')}
+              {t('admin.pendingReviews')}
             </Link>
           </nav>
         </aside>

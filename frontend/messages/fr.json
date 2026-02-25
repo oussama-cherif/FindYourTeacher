@@ -79,7 +79,8 @@
     "callConfirmed": "Appel confirmé",
     "callCancelled": "Appel annulé",
     "dismissCall": "Masquer",
-    "sessions": "Séances"
+    "sessions": "Séances",
+    "earnings": "Revenus"
   },
   "teachers": {
     "browseTitle": "Trouver un professeur",
@@ -155,7 +156,10 @@
     },
     "mySessions": "Mes séances",
     "upcomingSessions": "Séances à venir",
-    "noSessions": "Aucune séance disponible"
+    "noSessions": "Aucune séance disponible",
+    "myPayments": "Paiements",
+    "pendingPayments": "Paiements en attente",
+    "noPaymentsYet": "Aucun paiement"
   },
   "groups": {
     "browseTitle": "Groupes disponibles",
@@ -221,7 +225,65 @@
     "notStarted": "Cette séance n'a pas encore commencé",
     "ended": "Cette séance est terminée",
     "cancelled": "Cette séance a été annulée",
-    "liveNow": "Séance en cours"
+    "liveNow": "Séance en cours",
+    "noCredits": "Vous avez besoin de crédits pour rejoindre cette séance",
+    "buyCreditsToJoin": "Acheter des crédits"
+  },
+  "payments": {
+    "buyCredits": "Acheter des crédits",
+    "credits": "Crédits",
+    "selectCredits": "Nombre de séances",
+    "creditCount": "{count} séance(s)",
+    "totalAmount": "Total : {amount} DT",
+    "payNow": "Payer maintenant",
+    "paymentSuccess": "Paiement réussi !",
+    "paymentFailed": "Échec du paiement",
+    "verifying": "Vérification du paiement...",
+    "yourCredits": "Vos crédits",
+    "remaining": "{count} restant(s)",
+    "used": "{count} utilisé(s)",
+    "earnings": "Revenus",
+    "totalEarned": "Total gagné : {amount} DT",
+    "noPayments": "Aucun paiement",
+    "pendingPayment": "En attente",
+    "paidOn": "Payé le {date}",
+    "perSession": "par séance",
+    "retryPayment": "Réessayer le paiement",
+    "paymentStatus": {
+      "PENDING": "En attente",
+      "PAID": "Payé",
+      "FAILED": "Échoué",
+      "REFUNDED": "Remboursé"
+    },
+    "groupCredits": "Crédits pour {group}",
+    "purchaseHistory": "Historique des achats"
+  },
+  "recommendations": {
+    "leaveReview": "Laisser un avis",
+    "rating": "Note",
+    "comment": "Commentaire",
+    "submitReview": "Envoyer l'avis",
+    "reviewSubmitted": "Avis envoyé !",
+    "pendingApproval": "Votre commentaire est en attente d'approbation",
+    "yourReviews": "Avis",
+    "noReviews": "Aucun avis",
+    "averageRating": "Note moyenne",
+    "stars": "{count} étoile(s)",
+    "optional": "(facultatif)",
+    "commentPlaceholder": "Partagez votre expérience avec ce professeur...",
+    "ratingRequired": "Veuillez fournir au moins une note ou un commentaire",
+    "mustAttendSession": "Vous devez avoir assisté à au moins une séance pour laisser un avis"
+  },
+  "admin": {
+    "dashboard": "Tableau de bord admin",
+    "pendingReviews": "Avis en attente",
+    "approve": "Approuver",
+    "reject": "Rejeter",
+    "noReviewsPending": "Aucun avis en attente",
+    "reviewApproved": "Avis approuvé",
+    "reviewRejected": "Avis rejeté",
+    "studentName": "Élève",
+    "teacherName": "Professeur"
   },
   "levelOptions": {
     "A1": "A1 — Débutant",

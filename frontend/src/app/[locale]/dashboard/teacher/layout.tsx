@@ -139,6 +139,12 @@ export default function TeacherDashboardLayout({
               {t('teacher.sessions')}
             </Link>
             <Link
+              href="/dashboard/teacher/payments"
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            >
+              {t('teacher.earnings')}
+            </Link>
+            <Link
               href="/dashboard/teacher/groups"
               className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >

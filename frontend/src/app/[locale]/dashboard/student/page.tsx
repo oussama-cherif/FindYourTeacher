@@ -42,7 +42,7 @@ export default function StudentDashboardPage() {
         {t('student.dashboard')}
       </h1>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {/* Upcoming calls card */}
         <div className="rounded-xl bg-white p-6 shadow-sm">
           <h3 className="text-sm font-medium text-gray-500">
@@ -88,6 +88,19 @@ export default function StudentDashboardPage() {
             className="mt-4 inline-block text-sm text-blue-600 hover:underline"
           >
             {t('student.mySessions')}
+          </Link>
+        </div>
+
+        {/* Payments card */}
+        <div className="rounded-xl bg-white p-6 shadow-sm">
+          <h3 className="text-sm font-medium text-gray-500">
+            {t('student.myPayments')}
+          </h3>
+          <Link
+            href="/dashboard/student/payments"
+            className="mt-4 inline-block text-sm text-blue-600 hover:underline"
+          >
+            {t('student.myPayments')}
           </Link>
         </div>
       </div>

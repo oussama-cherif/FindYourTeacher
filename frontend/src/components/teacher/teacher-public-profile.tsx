@@ -7,6 +7,8 @@ import { Link } from '@/i18n/navigation';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import axios from 'axios';
 import api from '@/lib/api';
+import { RecommendationsList } from '@/components/recommendations/recommendations-list';
+import { RecommendationForm } from '@/components/recommendations/recommendation-form';
 
 interface TeacherPublicProfileData {
   id: string;
@@ -19,6 +21,7 @@ interface TeacherPublicProfileData {
     audienceTypes: string[];
     recommendationCount: number;
     hasStarBadge: boolean;
+    averageRating?: string | null;
   };
   availabilitySlots: {
     id: string;
@@ -163,11 +166,18 @@ export function TeacherPublicProfile({ teacherId }: { teacherId: string }) {
                     date: new Date(teacher.createdAt).toLocaleDateString(),
                   })}
                 </p>
-                <p className="text-sm text-gray-500">
-                  {t('teachers.recommendations', {
-                    count: teacher.teacherProfile.recommendationCount,
-                  })}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm text-gray-500">
+                    {t('teachers.recommendations', {
+                      count: teacher.teacherProfile.recommendationCount,
+                    })}
+                  </p>
+                  {teacher.teacherProfile.averageRating && (
+                    <span className="text-sm text-yellow-500">
+                      ★ {Number(teacher.teacherProfile.averageRating).toFixed(1)}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -240,6 +250,16 @@ export function TeacherPublicProfile({ teacherId }: { teacherId: string }) {
                 </div>
               )}
             </div>
+
+            {/* Recommendations */}
+            <div className="rounded-xl bg-white p-6 shadow-sm">
+              <RecommendationsList teacherId={teacherId} />
+            </div>
+
+            {/* Leave a review (student only, after auth check) */}
+            {authChecked && currentUser?.role === 'STUDENT' && (
+              <RecommendationForm teacherId={teacherId} />
+            )}
 
             {/* Booking section */}
             {bookingSuccess ? (

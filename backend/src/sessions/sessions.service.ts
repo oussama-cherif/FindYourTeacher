@@ -5,11 +5,15 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { PaymentsService } from '../payments/payments.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 
 @Injectable()
 export class SessionsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private paymentsService: PaymentsService,
+  ) {}
 
   private async resolveTeacherProfileId(userId: string): Promise<string> {
     const profile = await this.prisma.teacherProfile.findUnique({
@@ -136,11 +140,17 @@ export class SessionsService {
 
     const { memberships, teacherId, ...groupData } = session.group;
 
+    // Check if student has credits for this group
+    const hasCredits = isTeacher
+      ? true
+      : await this.paymentsService.hasCredits(userId, session.groupId);
+
     return {
       ...session,
       group: groupData,
       jitsiUrl: `https://meet.jit.si/${session.jitsiRoomId}`,
       isTeacher,
+      hasCredits,
     };
   }
 
@@ -164,10 +174,26 @@ export class SessionsService {
       throw new BadRequestException('Only LIVE sessions can be ended');
     }
 
-    return this.prisma.session.update({
+    const updatedSession = await this.prisma.session.update({
       where: { id: sessionId },
       data: { status: 'DONE' },
+      include: { group: { select: { id: true } } },
     });
+
+    // Consume one credit for each active group member
+    const activeMembers = await this.prisma.groupMembership.findMany({
+      where: { groupId: updatedSession.group.id, status: 'ACTIVE' },
+      select: { studentId: true },
+    });
+
+    for (const member of activeMembers) {
+      await this.paymentsService.consumeCredit(
+        member.studentId,
+        updatedSession.group.id,
+      );
+    }
+
+    return updatedSession;
   }
 
   async cancelSession(userId: string, sessionId: string) {

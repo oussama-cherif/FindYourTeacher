@@ -8,6 +8,9 @@ export const envValidationSchema = Joi.object({
   JWT_REFRESH_EXPIRATION: Joi.string().default('7d'),
   PORT: Joi.number().default(3001),
   FRONTEND_URL: Joi.string().required(),
+  FLOUCI_APP_TOKEN: Joi.string().required(),
+  FLOUCI_APP_SECRET: Joi.string().required(),
+  FLOUCI_BASE_URL: Joi.string().default('https://developers.flouci.com'),
   NODE_ENV: Joi.string()
     .valid('development', 'production', 'test')
     .default('development'),

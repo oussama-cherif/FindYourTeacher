@@ -13,6 +13,7 @@ interface SessionDetail {
   jitsiUrl: string;
   status: 'SCHEDULED' | 'LIVE' | 'DONE' | 'CANCELLED';
   isTeacher: boolean;
+  hasCredits: boolean;
   group: {
     id: string;
     name: string;
@@ -100,7 +101,21 @@ export function SessionRoom({
         )}
       </div>
 
-      {session.status === 'LIVE' && (
+      {session.status === 'LIVE' && !session.hasCredits && !session.isTeacher && (
+        <div className="rounded-xl bg-yellow-50 border border-yellow-200 p-8 text-center">
+          <p className="text-lg text-yellow-700 mb-3">
+            {tSessions('noCredits')}
+          </p>
+          <Link
+            href="/dashboard/student/payments"
+            className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition-colors"
+          >
+            {tSessions('buyCreditsToJoin')}
+          </Link>
+        </div>
+      )}
+
+      {session.status === 'LIVE' && (session.hasCredits || session.isTeacher) && (
         <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
           <iframe
             src={session.jitsiUrl}

@@ -177,6 +177,7 @@ export class TeachersService {
               audienceTypes: true,
               recommendationCount: true,
               hasStarBadge: true,
+              averageRating: true,
             },
           },
         },
@@ -212,6 +213,7 @@ export class TeachersService {
             audienceTypes: true,
             recommendationCount: true,
             hasStarBadge: true,
+            averageRating: true,
           },
         },
         availabilitySlots: {
