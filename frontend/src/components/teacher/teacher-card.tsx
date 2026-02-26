@@ -14,6 +14,7 @@ interface TeacherCardProps {
       audienceTypes: string[];
       recommendationCount: number;
       hasStarBadge: boolean;
+      averageRating?: string | null;
     } | null;
   };
 }
@@ -76,11 +77,18 @@ export function TeacherCard({ teacher }: TeacherCardProps) {
       )}
 
       <div className="mt-4 flex items-center justify-between">
-        <span className="text-sm text-gray-500">
-          {t('teachers.recommendations', {
-            count: profile?.recommendationCount ?? 0,
-          })}
-        </span>
+        <div className="flex items-center gap-2">
+          {profile?.averageRating && (
+            <span className="text-sm text-yellow-500">
+              ★ {Number(profile.averageRating).toFixed(1)}
+            </span>
+          )}
+          <span className="text-sm text-gray-500">
+            {t('teachers.recommendations', {
+              count: profile?.recommendationCount ?? 0,
+            })}
+          </span>
+        </div>
         <Link
           href={`/teachers/${teacher.id}`}
           className="text-sm font-medium text-blue-600 hover:underline"

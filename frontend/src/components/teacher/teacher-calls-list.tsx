@@ -11,7 +11,7 @@ interface OnboardingCall {
   status: 'PENDING' | 'CONFIRMED' | 'DONE' | 'CANCELLED';
   studentNotes: string | null;
   slot: { dayOfWeek: number; startTime: string; endTime: string };
-  student: { id: string; fullName: string; avatarUrl: string | null };
+  student: { id: string; fullName: string; avatarUrl: string | null; phone: string | null; email: string };
 }
 
 const STATUS_COLORS: Record<string, string> = {
@@ -42,7 +42,9 @@ export function TeacherCallsList() {
       setSuccess(
         variables.status === 'CONFIRMED'
           ? t('teacher.callConfirmed')
-          : t('teacher.callCancelled'),
+          : variables.status === 'DONE'
+            ? t('teacher.callMarkedDone')
+            : t('teacher.callCancelled'),
       );
       setTimeout(() => setSuccess(''), 3000);
     },
@@ -86,6 +88,12 @@ export function TeacherCallsList() {
                     <p className="font-medium text-gray-900">
                       {call.student.fullName}
                     </p>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm text-gray-500">
+                      {call.student.phone && (
+                        <span>{call.student.phone}</span>
+                      )}
+                      <span>{call.student.email}</span>
+                    </div>
                     <p className="text-sm text-gray-500">
                       {tDays(String(call.slot.dayOfWeek))} {call.slot.startTime}{' '}
                       - {call.slot.endTime}
@@ -120,6 +128,34 @@ export function TeacherCallsList() {
                       className="rounded bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-700 disabled:opacity-50 transition-colors"
                     >
                       {t('teacher.confirmCall')}
+                    </button>
+                    <button
+                      onClick={() =>
+                        statusMutation.mutate({
+                          callId: call.id,
+                          status: 'CANCELLED',
+                        })
+                      }
+                      disabled={statusMutation.isPending}
+                      className="rounded bg-red-600 px-3 py-1 text-xs text-white hover:bg-red-700 disabled:opacity-50 transition-colors"
+                    >
+                      {t('teacher.cancelCall')}
+                    </button>
+                  </div>
+                )}
+                {call.status === 'CONFIRMED' && (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() =>
+                        statusMutation.mutate({
+                          callId: call.id,
+                          status: 'DONE',
+                        })
+                      }
+                      disabled={statusMutation.isPending}
+                      className="rounded bg-blue-600 px-3 py-1 text-xs text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                    >
+                      {t('teacher.markDone')}
                     </button>
                     <button
                       onClick={() =>

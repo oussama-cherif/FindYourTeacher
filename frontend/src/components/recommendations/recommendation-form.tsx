@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';
 
 interface RecommendationFormProps {
@@ -15,10 +15,24 @@ export function RecommendationForm({
   onSuccess,
 }: RecommendationFormProps) {
   const t = useTranslations('recommendations');
+  const queryClient = useQueryClient();
   const [rating, setRating] = useState<number | null>(null);
   const [hoveredStar, setHoveredStar] = useState<number | null>(null);
   const [comment, setComment] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  const { data: existing } = useQuery({
+    queryKey: ['recommendations', 'mine', teacherId],
+    queryFn: () =>
+      api.get(`/recommendations/mine/${teacherId}`).then((r) => r.data),
+  });
+
+  useEffect(() => {
+    if (existing) {
+      setRating(existing.rating ?? null);
+      setComment(existing.comment ?? '');
+    }
+  }, [existing]);
 
   const mutation = useMutation({
     mutationFn: (data: {
@@ -28,6 +42,7 @@ export function RecommendationForm({
     }) => api.post('/recommendations', data).then((r) => r.data),
     onSuccess: () => {
       setSubmitted(true);
+      queryClient.invalidateQueries({ queryKey: ['recommendations', 'teacher', teacherId] });
       onSuccess?.();
     },
   });
@@ -48,7 +63,7 @@ export function RecommendationForm({
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-4">
       <h3 className="text-sm font-semibold text-gray-900 mb-3">
-        {t('leaveReview')}
+        {existing ? t('editReview') : t('leaveReview')}
       </h3>
 
       {/* Star Rating */}

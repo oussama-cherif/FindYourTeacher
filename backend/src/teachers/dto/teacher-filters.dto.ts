@@ -17,6 +17,10 @@ export class TeacherFiltersDto {
 
   @IsOptional()
   @IsString()
+  search?: string;
+
+  @IsOptional()
+  @IsString()
   language?: string;
 
   @IsOptional()

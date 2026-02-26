@@ -47,7 +47,7 @@ export function StudentPayments() {
 
   const { data: groups } = useQuery({
     queryKey: ['student', 'groups'],
-    queryFn: () => api.get('/groups/student').then((r) => r.data),
+    queryFn: () => api.get('/groups/mine').then((r) => r.data),
   });
 
   const buyMutation = useMutation({
@@ -59,13 +59,13 @@ export function StudentPayments() {
   });
 
   const activeGroups: Group[] =
-    groups?.memberships?.filter(
-      (m: { status: string; group: Group }) => m.status === 'ACTIVE',
-    ).map((m: { group: Group }) => m.group) ?? [];
+    (groups ?? [])
+      .filter((m: { status: string; group: Group }) => m.status === 'ACTIVE')
+      .map((m: { group: Group }) => m.group) ?? [];
 
   const selectedGroup = activeGroups.find((g) => g.id === selectedGroupId);
   const pricePerSession = selectedGroup
-    ? Number(selectedGroup.pricePerSession) + Number(selectedGroup.platformFee)
+    ? Number(selectedGroup.pricePerSession)
     : 0;
   const totalPrice = pricePerSession * creditCount;
 

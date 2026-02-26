@@ -23,6 +23,11 @@ export class RegisterDto {
   fullName: string;
 
   @IsOptional()
+  @IsString()
+  @MaxLength(20)
+  phone?: string;
+
+  @IsOptional()
   @IsEnum(UserRole, { message: 'role must be STUDENT or TEACHER' })
   role?: UserRole;
 }

@@ -334,7 +334,26 @@ export function TeacherPublicProfile({ teacherId }: { teacherId: string }) {
                       <input
                         type="date"
                         value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
+                        onChange={(e) => {
+                          const date = new Date(e.target.value + 'T00:00:00');
+                          const slot = teacher?.availabilitySlots.find(
+                            (s) => s.id === selectedSlotId,
+                          );
+                          // JS: 0=Sunday, Prisma: 0=Monday → convert
+                          const jsDay = date.getDay();
+                          const slotDay = slot ? (slot.dayOfWeek + 1) % 7 : -1;
+                          if (slot && jsDay !== slotDay) {
+                            setSelectedDate('');
+                            setBookingError(
+                              t('teachers.wrongDay', {
+                                day: tDays(String(slot.dayOfWeek)),
+                              }),
+                            );
+                            return;
+                          }
+                          setBookingError('');
+                          setSelectedDate(e.target.value);
+                        }}
                         required
                         min={new Date().toISOString().split('T')[0]}
                         className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"

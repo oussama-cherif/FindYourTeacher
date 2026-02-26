@@ -98,7 +98,7 @@ export class OnboardingService {
           select: { dayOfWeek: true, startTime: true, endTime: true },
         },
         student: {
-          select: { id: true, fullName: true, avatarUrl: true },
+          select: { id: true, fullName: true, avatarUrl: true, phone: true, email: true },
         },
       },
     });

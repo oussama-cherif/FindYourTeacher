@@ -3,7 +3,6 @@ import {
   NotFoundException,
   BadRequestException,
   ForbiddenException,
-  ConflictException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateRecommendationDto } from './dto/create-recommendation.dto';
@@ -39,27 +38,24 @@ export class RecommendationsService {
       );
     }
 
-    // Check for existing recommendation
-    const existing = await this.prisma.recommendation.findUnique({
+    // Rating-only reviews are auto-approved; comments need admin approval
+    const autoApproved = !dto.comment;
+
+    const recommendation = await this.prisma.recommendation.upsert({
       where: {
         teacherId_studentId: {
           teacherId: dto.teacherId,
           studentId,
         },
       },
-    });
-
-    if (existing) {
-      throw new ConflictException(
-        'You already left a review for this teacher',
-      );
-    }
-
-    // Rating-only reviews are auto-approved; comments need admin approval
-    const autoApproved = !dto.comment;
-
-    const recommendation = await this.prisma.recommendation.create({
-      data: {
+      update: {
+        rating: dto.rating,
+        comment: dto.comment,
+        approved: autoApproved,
+        approvedAt: autoApproved ? new Date() : undefined,
+        approvedBy: null,
+      },
+      create: {
         teacherId: dto.teacherId,
         studentId,
         rating: dto.rating,
@@ -82,6 +78,21 @@ export class RecommendationsService {
     }
 
     return recommendation;
+  }
+
+  async getMyReview(studentId: string, teacherId: string) {
+    return this.prisma.recommendation.findUnique({
+      where: {
+        teacherId_studentId: { teacherId, studentId },
+      },
+      select: {
+        id: true,
+        rating: true,
+        comment: true,
+        approved: true,
+        createdAt: true,
+      },
+    });
   }
 
   async getTeacherRecommendations(teacherId: string) {

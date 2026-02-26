@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';
 
@@ -22,6 +23,13 @@ interface GroupMembership {
   };
 }
 
+interface GroupBalance {
+  groupId: string;
+  groupName: string;
+  remaining: number;
+  total: number;
+}
+
 const STATUS_COLORS: Record<string, string> = {
   PENDING: 'bg-yellow-100 text-yellow-800',
   ACTIVE: 'bg-green-100 text-green-800',
@@ -40,6 +48,15 @@ export function StudentGroupsList() {
     queryKey: ['student', 'groups', 'mine'],
     queryFn: () => api.get('/groups/mine').then((r) => r.data),
   });
+
+  const { data: creditsData } = useQuery({
+    queryKey: ['student', 'credits'],
+    queryFn: () => api.get('/payments/student').then((r) => r.data),
+  });
+
+  const balances: GroupBalance[] = creditsData?.balances ?? [];
+  const getGroupBalance = (groupId: string) =>
+    balances.find((b) => b.groupId === groupId);
 
   const leaveMutation = useMutation({
     mutationFn: (groupId: string) => api.patch(`/groups/${groupId}/leave`),
@@ -67,7 +84,13 @@ export function StudentGroupsList() {
             <div>
               <h3 className="font-medium text-gray-900">{m.group.name}</h3>
               <p className="mt-1 text-sm text-gray-600">
-                {t('groups.teacherName')}: {m.group.teacher.user.fullName}
+                {t('groups.teacherName')}:{' '}
+                <Link
+                  href={`/teachers/${m.group.teacher.user.id}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {m.group.teacher.user.fullName}
+                </Link>
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
                 <span className="inline-block rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-700">
@@ -83,6 +106,18 @@ export function StudentGroupsList() {
               <p className="mt-2 text-sm text-gray-500">
                 {Number(m.group.pricePerSession).toFixed(3)} DT / {t('groups.pricePerSession').toLowerCase().includes('séance') ? 'séance' : 'session'}
               </p>
+              {m.status === 'ACTIVE' && (() => {
+                const balance = getGroupBalance(m.group.id);
+                return balance && balance.remaining > 0 ? (
+                  <p className="mt-1 text-sm font-medium text-green-600">
+                    {t('payments.remaining', { count: balance.remaining })}
+                  </p>
+                ) : (
+                  <p className="mt-1 text-sm text-gray-400">
+                    {t('payments.noCreditsYet')}
+                  </p>
+                );
+              })()}
             </div>
             <div className="flex items-center gap-3">
               <span

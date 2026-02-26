@@ -281,6 +281,7 @@ export class GroupsService {
             level: true,
             audienceType: true,
             pricePerSession: true,
+            platformFee: true,
             isActive: true,
             teacher: {
               select: {

@@ -19,9 +19,14 @@ FindYourTeacher/
 
 - **Authentication** — Register/login as student or teacher, JWT access + refresh tokens, httpOnly cookie rotation with reuse detection
 - **Teacher profiles** — Bio, languages taught, audience types, availability slots
-- **Discovery calls** — Students book short placement calls from teacher availability. Teachers confirm or cancel. Sidebar badges show pending (red) and confirmed (yellow) counts
+- **Discovery calls** — Students book short placement calls from teacher availability. Teachers confirm, mark done, or cancel. Teachers see student phone/email for contact. Sidebar badges show pending (red) and confirmed (yellow) counts
 - **Groups** — Teachers create language groups (level, audience, max students, price). Students browse and request to join. Teachers approve or remove members. Sidebar badge for pending requests
-- **Public browse** — Filter teachers by language/audience. Filter groups by language/level/audience. Paginated results
+- **Sessions & Video** — Teachers schedule sessions for groups. Jitsi Meet embedded video rooms. Teachers start/end/cancel sessions
+- **Session Credits** — Students buy 1-4 session credits per group via Flouci payment gateway. Credits consumed when teacher ends a session. Sandbox mode for development
+- **Recommendations** — Students leave optional star rating + comment for teachers. Rating-only reviews auto-approved. Comments require admin approval. Students can edit their review
+- **Admin Dashboard** — Admin role can approve or reject recommendation comments
+- **Public browse** — Search teachers by name, filter by language/audience. Filter groups by language/level/audience. Paginated results
+- **Navigation** — Students can browse teachers and groups from their dashboard. Public pages detect auth and show dashboard link
 - **i18n** — Full French and English support, locale-prefixed routes
 
 ## Quick Start
@@ -63,21 +68,24 @@ npm run dev                    # runs on localhost:3000
 
 ## API Modules
 
-| Module      | Prefix              | Description                                         |
-|-------------|---------------------|-----------------------------------------------------|
-| Auth        | `/api/auth`         | Register, login, refresh, logout                    |
-| Users       | `/api/users`        | Current user profile                                |
-| Teachers    | `/api/teachers`     | Profile CRUD, availability, browse, public profile  |
-| Onboarding  | `/api/onboarding`   | Book/confirm/cancel discovery calls                 |
-| Groups      | `/api/groups`       | Group CRUD, browse, join/leave, membership mgmt     |
+| Module          | Prefix                  | Description                                         |
+|-----------------|-------------------------|-----------------------------------------------------|
+| Auth            | `/api/auth`             | Register, login, refresh, logout                    |
+| Users           | `/api/users`            | Current user profile                                |
+| Teachers        | `/api/teachers`         | Profile CRUD, availability, browse, public profile  |
+| Onboarding      | `/api/onboarding`       | Book/confirm/cancel/done discovery calls            |
+| Groups          | `/api/groups`           | Group CRUD, browse, join/leave, membership mgmt     |
+| Sessions        | `/api/sessions`         | Schedule, start/end/cancel sessions, Jitsi rooms    |
+| Payments        | `/api/payments`         | Buy credits (Flouci), verify, balances, earnings    |
+| Recommendations | `/api/recommendations`  | Student reviews, admin approve/reject               |
 
 ## Project Status
 
 - [x] Phase 1 — Foundation (NestJS, Next.js, Prisma, JWT auth, i18n)
 - [x] Phase 2 — Teacher Core (profiles, availability, browse)
 - [x] Phase 3 — Student Core (onboarding calls, groups, student dashboard)
-- [ ] Phase 4 — Sessions & Video (Jitsi Meet integration)
-- [ ] Phase 5 — Payments & Recommendations
+- [x] Phase 4 — Sessions & Video (Jitsi Meet integration)
+- [x] Phase 5 — Payments (Flouci), Recommendations, Admin Dashboard
 - [ ] Phase 6 — CI/CD, Testing, Deploy
 
 ## License

@@ -8,6 +8,7 @@
     "email": "Email address",
     "password": "Password",
     "fullName": "Full name",
+    "phone": "Phone number",
     "submit": "Submit",
     "loading": "Loading...",
     "error": "An error occurred",
@@ -17,7 +18,8 @@
     "cancel": "Cancel",
     "back": "Back",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "myDashboard": "My dashboard"
   },
   "landing": {
     "heroTitle": "Learn a new language with the best Tunisian teachers",
@@ -78,12 +80,15 @@
     "cancelCall": "Cancel",
     "callConfirmed": "Call confirmed",
     "callCancelled": "Call cancelled",
+    "callMarkedDone": "Call marked as done",
+    "markDone": "Done",
     "dismissCall": "Dismiss",
     "sessions": "Sessions",
     "earnings": "Earnings"
   },
   "teachers": {
     "browseTitle": "Find a teacher",
+    "searchPlaceholder": "Search by name...",
     "filterLanguage": "Language",
     "filterAudience": "Audience",
     "allLanguages": "All languages",
@@ -102,7 +107,8 @@
     "loginToBook": "Log in to book",
     "noSlotsAvailable": "No slots available",
     "bookingConfirmed": "Your call has been booked!",
-    "slotAlreadyBooked": "This slot is already booked"
+    "slotAlreadyBooked": "This slot is already booked",
+    "wrongDay": "Please select a {day}"
   },
   "days": {
     "0": "Monday",
@@ -157,6 +163,8 @@
     "mySessions": "My sessions",
     "upcomingSessions": "Upcoming sessions",
     "noSessions": "No sessions available",
+    "findTeacher": "Find a teacher",
+    "browseGroups": "Browse groups",
     "myPayments": "Payments",
     "pendingPayments": "Pending payments",
     "noPaymentsYet": "No payments yet"
@@ -241,6 +249,7 @@
     "verifying": "Verifying payment...",
     "yourCredits": "Your credits",
     "remaining": "{count} remaining",
+    "noCreditsYet": "No credits",
     "used": "{count} used",
     "earnings": "Earnings",
     "totalEarned": "Total earned: {amount} DT",
@@ -260,6 +269,7 @@
   },
   "recommendations": {
     "leaveReview": "Leave a review",
+    "editReview": "Edit your review",
     "rating": "Rating",
     "comment": "Comment",
     "submitReview": "Submit review",

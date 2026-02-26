@@ -31,13 +31,16 @@ npx prisma studio       # database GUI at localhost:5555
 
 ## API Routes
 
-| Module      | Prefix              | Endpoints                                               |
-|-------------|---------------------|---------------------------------------------------------|
-| Auth        | `/api/auth`         | register, login, refresh, logout                        |
-| Users       | `/api/users`        | me                                                      |
-| Teachers    | `/api/teachers`     | profile CRUD, availability CRUD, browse, public profile |
-| Onboarding  | `/api/onboarding`   | book call, student/teacher call lists, confirm, cancel  |
-| Groups      | `/api/groups`       | CRUD, browse, join/leave, membership approval/removal   |
+| Module          | Prefix                  | Endpoints                                                 |
+|-----------------|-------------------------|-----------------------------------------------------------|
+| Auth            | `/api/auth`             | register, login, refresh, logout                          |
+| Users           | `/api/users`            | me                                                        |
+| Teachers        | `/api/teachers`         | profile CRUD, availability CRUD, browse, public profile   |
+| Onboarding      | `/api/onboarding`       | book call, student/teacher lists, confirm/cancel/done     |
+| Groups          | `/api/groups`           | CRUD, browse, join/leave, membership approval/removal     |
+| Sessions        | `/api/sessions`         | schedule, start/end/cancel, session detail, Jitsi rooms   |
+| Payments        | `/api/payments`         | buy credits, verify (Flouci), student balances, earnings  |
+| Recommendations | `/api/recommendations`  | create/edit review, teacher reviews, admin approve/reject |
 
 ## Environment Variables
 

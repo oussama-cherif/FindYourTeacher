@@ -8,6 +8,7 @@
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "fullName": "Nom complet",
+    "phone": "Numéro de téléphone",
     "submit": "Envoyer",
     "loading": "Chargement...",
     "error": "Une erreur est survenue",
@@ -17,7 +18,8 @@
     "cancel": "Annuler",
     "back": "Retour",
     "next": "Suivant",
-    "previous": "Précédent"
+    "previous": "Précédent",
+    "myDashboard": "Mon espace"
   },
   "landing": {
     "heroTitle": "Apprenez une nouvelle langue avec les meilleurs professeurs tunisiens",
@@ -78,12 +80,15 @@
     "cancelCall": "Annuler",
     "callConfirmed": "Appel confirmé",
     "callCancelled": "Appel annulé",
+    "callMarkedDone": "Appel marqué comme terminé",
+    "markDone": "Terminé",
     "dismissCall": "Masquer",
     "sessions": "Séances",
     "earnings": "Revenus"
   },
   "teachers": {
     "browseTitle": "Trouver un professeur",
+    "searchPlaceholder": "Rechercher par nom...",
     "filterLanguage": "Langue",
     "filterAudience": "Public",
     "allLanguages": "Toutes les langues",
@@ -102,7 +107,8 @@
     "loginToBook": "Connectez-vous pour réserver",
     "noSlotsAvailable": "Aucun créneau disponible",
     "bookingConfirmed": "Votre appel a bien été réservé !",
-    "slotAlreadyBooked": "Ce créneau est déjà réservé"
+    "slotAlreadyBooked": "Ce créneau est déjà réservé",
+    "wrongDay": "Veuillez choisir un {day}"
   },
   "days": {
     "0": "Lundi",
@@ -157,6 +163,8 @@
     "mySessions": "Mes séances",
     "upcomingSessions": "Séances à venir",
     "noSessions": "Aucune séance disponible",
+    "findTeacher": "Trouver un professeur",
+    "browseGroups": "Parcourir les groupes",
     "myPayments": "Paiements",
     "pendingPayments": "Paiements en attente",
     "noPaymentsYet": "Aucun paiement"
@@ -241,6 +249,7 @@
     "verifying": "Vérification du paiement...",
     "yourCredits": "Vos crédits",
     "remaining": "{count} restant(s)",
+    "noCreditsYet": "Aucun crédit",
     "used": "{count} utilisé(s)",
     "earnings": "Revenus",
     "totalEarned": "Total gagné : {amount} DT",
@@ -260,6 +269,7 @@
   },
   "recommendations": {
     "leaveReview": "Laisser un avis",
+    "editReview": "Modifier votre avis",
     "rating": "Note",
     "comment": "Commentaire",
     "submitReview": "Envoyer l'avis",

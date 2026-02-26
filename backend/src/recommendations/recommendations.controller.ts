@@ -31,6 +31,16 @@ export class RecommendationsController {
     return this.recommendationsService.createRecommendation(studentId, dto);
   }
 
+  @Get('mine/:teacherId')
+  @UseGuards(JwtAccessGuard, RolesGuard)
+  @Roles(UserRole.STUDENT)
+  getMyReview(
+    @CurrentUser('sub') studentId: string,
+    @Param('teacherId', ParseUUIDPipe) teacherId: string,
+  ) {
+    return this.recommendationsService.getMyReview(studentId, teacherId);
+  }
+
   @Get('teacher/:teacherId')
   getTeacherRecommendations(
     @Param('teacherId', ParseUUIDPipe) teacherId: string,

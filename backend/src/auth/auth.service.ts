@@ -35,6 +35,7 @@ export class AuthService {
         email: dto.email,
         passwordHash,
         fullName: dto.fullName,
+        phone: dto.phone,
         role: dto.role ?? 'STUDENT',
       },
     });

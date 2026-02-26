@@ -1,6 +1,6 @@
 import { IsIn } from 'class-validator';
 
 export class UpdateCallStatusDto {
-  @IsIn(['CONFIRMED', 'CANCELLED'])
-  status: 'CONFIRMED' | 'CANCELLED';
+  @IsIn(['CONFIRMED', 'CANCELLED', 'DONE'])
+  status: 'CONFIRMED' | 'CANCELLED' | 'DONE';
 }

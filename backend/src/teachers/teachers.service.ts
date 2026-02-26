@@ -146,6 +146,10 @@ export class TeachersService {
       teacherProfile: { isNot: null },
     };
 
+    if (filters.search) {
+      where.fullName = { contains: filters.search, mode: 'insensitive' };
+    }
+
     if (filters.language) {
       where.teacherProfile = {
         ...((where.teacherProfile as Record<string, unknown>) ?? {}),

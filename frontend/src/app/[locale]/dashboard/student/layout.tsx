@@ -76,6 +76,19 @@ export default function StudentDashboardLayout({
               {t('student.dashboard')}
             </Link>
             <Link
+              href="/teachers"
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50"
+            >
+              {t('student.findTeacher')}
+            </Link>
+            <Link
+              href="/groups"
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50"
+            >
+              {t('student.browseGroups')}
+            </Link>
+            <hr className="my-2 border-gray-200" />
+            <Link
               href="/dashboard/student/calls"
               className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >

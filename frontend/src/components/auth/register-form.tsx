@@ -23,6 +23,7 @@ export function RegisterForm() {
     const fullName = formData.get('fullName') as string;
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
+    const phone = (formData.get('phone') as string) || undefined;
     const role = formData.get('role') as string;
 
     try {
@@ -30,6 +31,7 @@ export function RegisterForm() {
         fullName,
         email,
         password,
+        phone,
         role,
       });
       setAccessToken(data.accessToken);
@@ -81,6 +83,22 @@ export function RegisterForm() {
           name="email"
           type="email"
           required
+          className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="phone"
+          className="block text-sm font-medium text-gray-700"
+        >
+          {t('common.phone')}
+        </label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          maxLength={20}
+          placeholder="+216 XX XXX XXX"
           className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>

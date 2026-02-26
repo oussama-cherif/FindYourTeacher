@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@/i18n/navigation';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { GroupCard } from '@/components/groups/group-card';
 import axios from 'axios';
+import api from '@/lib/api';
 
 const LANGUAGE_KEYS = [
   'french',
@@ -23,6 +24,16 @@ const LEVEL_KEYS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const;
 
 export default function BrowseGroupsPage() {
   const t = useTranslations();
+  const [currentUser, setCurrentUser] = useState<{ role: string } | null>(null);
+
+  useEffect(() => {
+    api.get('/users/me').then(({ data }) => setCurrentUser(data)).catch(() => {});
+  }, []);
+
+  const dashboardPath = currentUser?.role === 'TEACHER'
+    ? '/dashboard/teacher'
+    : '/dashboard/student';
+
   const [language, setLanguage] = useState('');
   const [level, setLevel] = useState('');
   const [audienceType, setAudienceType] = useState('');
@@ -53,12 +64,21 @@ export default function BrowseGroupsPage() {
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
-          <Link
-            href="/login"
-            className="text-gray-700 hover:text-blue-600 transition-colors"
-          >
-            {t('common.login')}
-          </Link>
+          {currentUser ? (
+            <Link
+              href={dashboardPath}
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              {t('common.myDashboard')}
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              {t('common.login')}
+            </Link>
+          )}
         </div>
       </nav>
 

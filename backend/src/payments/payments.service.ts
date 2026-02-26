@@ -13,11 +13,15 @@ import { Decimal } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class PaymentsService {
+  private readonly isSandbox: boolean;
+
   constructor(
     private prisma: PrismaService,
     private config: ConfigService,
     private http: HttpService,
-  ) {}
+  ) {
+    this.isSandbox = this.config.get<string>('FLOUCI_APP_TOKEN') === 'sandbox';
+  }
 
   async buyCredits(studentId: string, dto: BuyCreditsDto) {
     // Verify group exists and student is an active member
@@ -44,11 +48,10 @@ export class PaymentsService {
     }
 
     const pricePerSession = new Decimal(group.pricePerSession);
-    const platformFee = new Decimal(group.platformFee);
-    const totalPerSession = pricePerSession.plus(platformFee);
-    const amountPaid = totalPerSession.times(dto.credits);
-    const totalPlatformFee = platformFee.times(dto.credits);
-    const teacherNet = pricePerSession.times(dto.credits);
+    // Student pays full session price, teacher receives 100% (platform fee is a separate teacher subscription)
+    const amountPaid = pricePerSession.times(dto.credits);
+    const totalPlatformFee = new Decimal(0);
+    const teacherNet = amountPaid;
 
     // Create session credit record with PENDING status
     const credit = await this.prisma.sessionCredit.create({
@@ -69,8 +72,8 @@ export class PaymentsService {
 
     const flouciResponse = await this.callFlouciGeneratePayment(
       amountInMillimes,
-      `${frontendUrl}/dashboard/student/payments/success?creditId=${credit.id}`,
-      `${frontendUrl}/dashboard/student/payments/fail?creditId=${credit.id}`,
+      `${frontendUrl}/fr/dashboard/student/payments/success?creditId=${credit.id}`,
+      `${frontendUrl}/fr/dashboard/student/payments/fail?creditId=${credit.id}`,
       credit.id,
     );
 
@@ -269,6 +272,15 @@ export class PaymentsService {
     failLink: string,
     trackingId: string,
   ): Promise<{ paymentId: string; link: string }> {
+    // Sandbox mode: skip Flouci API and redirect directly to success page
+    if (this.isSandbox) {
+      const sandboxPaymentId = `sandbox_${trackingId}_${Date.now()}`;
+      return {
+        paymentId: sandboxPaymentId,
+        link: successLink,
+      };
+    }
+
     const baseUrl = this.config.getOrThrow<string>('FLOUCI_BASE_URL');
     const appToken = this.config.getOrThrow<string>('FLOUCI_APP_TOKEN');
     const appSecret = this.config.getOrThrow<string>('FLOUCI_APP_SECRET');
@@ -300,6 +312,11 @@ export class PaymentsService {
   }
 
   private async callFlouciVerifyPayment(paymentId: string): Promise<boolean> {
+    // Sandbox mode: always return success
+    if (this.isSandbox) {
+      return true;
+    }
+
     const baseUrl = this.config.getOrThrow<string>('FLOUCI_BASE_URL');
     const appToken = this.config.getOrThrow<string>('FLOUCI_APP_TOKEN');
     const appSecret = this.config.getOrThrow<string>('FLOUCI_APP_SECRET');
