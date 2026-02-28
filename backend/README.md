@@ -29,6 +29,16 @@ npm run start:prod      # production
 npx prisma studio       # database GUI at localhost:5555
 ```
 
+## Testing
+
+```bash
+npm test                # run all unit tests
+npm run test:watch      # watch mode
+npm run test:cov        # with coverage report
+```
+
+Unit tests cover auth (register, login, refresh token rotation/reuse detection), teacher availability slot overlap detection, and group join logic (capacity, re-join).
+
 ## API Routes
 
 | Module          | Prefix                  | Endpoints                                                 |
@@ -41,6 +51,7 @@ npx prisma studio       # database GUI at localhost:5555
 | Sessions        | `/api/sessions`         | schedule, start/end/cancel, session detail, Jitsi rooms   |
 | Payments        | `/api/payments`         | buy credits, verify (Flouci), student balances, earnings  |
 | Recommendations | `/api/recommendations`  | create/edit review, teacher reviews, admin approve/reject |
+| Health          | `/api/health`           | health check (status + timestamp)                         |
 
 ## Environment Variables
 

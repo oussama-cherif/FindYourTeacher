@@ -56,6 +56,12 @@ cp .env.example .env.local    # set NEXT_PUBLIC_API_URL=http://localhost:3001/ap
 npm run dev                    # runs on localhost:3000
 ```
 
+### Docker (alternative)
+
+```bash
+docker compose up              # starts PostgreSQL, backend, and frontend
+```
+
 ## Tech Stack
 
 | Layer      | Technology                                    |
@@ -64,6 +70,9 @@ npm run dev                    # runs on localhost:3000
 | Frontend   | Next.js 14, Tailwind CSS, next-intl, TanStack Query |
 | Database   | PostgreSQL (Neon serverless)                  |
 | Auth       | JWT access (15min) + refresh (7d, httpOnly)   |
+| Testing    | Jest (backend unit tests)                     |
+| CI/CD      | GitHub Actions (lint, typecheck, test, build)  |
+| Dev Env    | Docker Compose (PostgreSQL, backend, frontend) |
 | Currency   | Tunisian Dinar (TND), Decimal(10,3)           |
 
 ## API Modules
@@ -86,7 +95,7 @@ npm run dev                    # runs on localhost:3000
 - [x] Phase 3 — Student Core (onboarding calls, groups, student dashboard)
 - [x] Phase 4 — Sessions & Video (Jitsi Meet integration)
 - [x] Phase 5 — Payments (Flouci), Recommendations, Admin Dashboard
-- [ ] Phase 6 — CI/CD, Testing, Deploy
+- [x] Phase 6 — CI/CD, Unit Tests, Docker Dev Environment
 
 ## License
 

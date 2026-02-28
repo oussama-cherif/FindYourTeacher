@@ -12,6 +12,7 @@ import { GroupsModule } from './groups/groups.module';
 import { SessionsModule } from './sessions/sessions.module';
 import { PaymentsModule } from './payments/payments.module';
 import { RecommendationsModule } from './recommendations/recommendations.module';
+import { HealthController } from './health.controller';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { RecommendationsModule } from './recommendations/recommendations.module'
     PaymentsModule,
     RecommendationsModule,
   ],
+  controllers: [HealthController],
   providers: [
     {
       provide: APP_GUARD,

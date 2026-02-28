@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: findyourteacher
+      POSTGRES_PASSWORD: localdev
+      POSTGRES_DB: findyourteacher
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U findyourteacher"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://findyourteacher:localdev@postgres:5432/findyourteacher
+      JWT_ACCESS_SECRET: dev-access-secret-change-me-in-prod
+      JWT_REFRESH_SECRET: dev-refresh-secret-change-me-in-prod
+      JWT_ACCESS_EXPIRATION: 15m
+      JWT_REFRESH_EXPIRATION: 7d
+      FRONTEND_URL: http://localhost:3000
+      PORT: 3001
+      NODE_ENV: development
+      FLOUCI_APP_TOKEN: sandbox
+      FLOUCI_APP_SECRET: sandbox
+      FLOUCI_BASE_URL: https://developers.flouci.com
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/prisma:/app/prisma
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001/api
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/messages:/app/messages
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
