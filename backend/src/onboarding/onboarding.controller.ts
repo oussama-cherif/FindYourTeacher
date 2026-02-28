@@ -25,10 +25,7 @@ export class OnboardingController {
   @Post()
   @UseGuards(JwtAccessGuard, RolesGuard)
   @Roles(UserRole.STUDENT)
-  bookCall(
-    @CurrentUser('sub') studentId: string,
-    @Body() dto: BookCallDto,
-  ) {
+  bookCall(@CurrentUser('sub') studentId: string, @Body() dto: BookCallDto) {
     return this.onboardingService.bookCall(studentId, dto);
   }
 

@@ -39,7 +39,9 @@ export class OnboardingService {
     });
 
     if (existing) {
-      throw new ConflictException('You already have an active booking for this slot');
+      throw new ConflictException(
+        'You already have an active booking for this slot',
+      );
     }
 
     return this.prisma.onboardingCall.create({
@@ -98,7 +100,13 @@ export class OnboardingService {
           select: { dayOfWeek: true, startTime: true, endTime: true },
         },
         student: {
-          select: { id: true, fullName: true, avatarUrl: true, phone: true, email: true },
+          select: {
+            id: true,
+            fullName: true,
+            avatarUrl: true,
+            phone: true,
+            email: true,
+          },
         },
       },
     });

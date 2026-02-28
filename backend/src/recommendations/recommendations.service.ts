@@ -14,9 +14,7 @@ export class RecommendationsService {
 
   async createRecommendation(studentId: string, dto: CreateRecommendationDto) {
     if (!dto.rating && !dto.comment) {
-      throw new BadRequestException(
-        'At least a rating or comment is required',
-      );
+      throw new BadRequestException('At least a rating or comment is required');
     }
 
     // Verify student has attended at least one DONE session with this teacher

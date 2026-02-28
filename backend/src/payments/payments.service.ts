@@ -44,7 +44,9 @@ export class PaymentsService {
     }
 
     if (group.memberships.length === 0) {
-      throw new ForbiddenException('You must be an active member of this group');
+      throw new ForbiddenException(
+        'You must be an active member of this group',
+      );
     }
 
     const pricePerSession = new Decimal(group.pricePerSession);
@@ -287,19 +289,16 @@ export class PaymentsService {
 
     try {
       const { data } = await firstValueFrom(
-        this.http.post(
-          `${baseUrl}/api/v2/generate_payment`,
-          {
-            app_token: appToken,
-            app_secret: appSecret,
-            amount: amountInMillimes,
-            accept_card: 'true',
-            session_timeout_secs: 1200,
-            success_link: successLink,
-            fail_link: failLink,
-            developer_tracking_id: trackingId,
-          },
-        ),
+        this.http.post(`${baseUrl}/api/v2/generate_payment`, {
+          app_token: appToken,
+          app_secret: appSecret,
+          amount: amountInMillimes,
+          accept_card: 'true',
+          session_timeout_secs: 1200,
+          success_link: successLink,
+          fail_link: failLink,
+          developer_tracking_id: trackingId,
+        }),
       );
 
       return {

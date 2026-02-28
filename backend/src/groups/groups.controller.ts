@@ -29,10 +29,7 @@ export class GroupsController {
   @Post()
   @UseGuards(JwtAccessGuard, RolesGuard)
   @Roles(UserRole.TEACHER)
-  createGroup(
-    @CurrentUser('sub') userId: string,
-    @Body() dto: CreateGroupDto,
-  ) {
+  createGroup(@CurrentUser('sub') userId: string, @Body() dto: CreateGroupDto) {
     return this.groupsService.createGroup(userId, dto);
   }
 

@@ -102,9 +102,7 @@ export class TeachersService {
     });
 
     if (overlapping) {
-      throw new BadRequestException(
-        'This slot overlaps with an existing one',
-      );
+      throw new BadRequestException('This slot overlaps with an existing one');
     }
 
     return this.prisma.availabilitySlot.create({

@@ -90,7 +90,9 @@ export class GroupsService {
         ...(dto.name !== undefined && { name: dto.name }),
         ...(dto.language !== undefined && { language: dto.language }),
         ...(dto.level !== undefined && { level: dto.level }),
-        ...(dto.audienceType !== undefined && { audienceType: dto.audienceType }),
+        ...(dto.audienceType !== undefined && {
+          audienceType: dto.audienceType,
+        }),
         ...(dto.maxStudents !== undefined && { maxStudents: dto.maxStudents }),
         ...(dto.pricePerSession !== undefined && {
           pricePerSession: new Decimal(dto.pricePerSession),
