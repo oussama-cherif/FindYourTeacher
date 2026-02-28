@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BadRequestException, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { GroupsService } from './groups.service';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -25,10 +29,7 @@ describe('GroupsService', () => {
     };
 
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        GroupsService,
-        { provide: PrismaService, useValue: prisma },
-      ],
+      providers: [GroupsService, { provide: PrismaService, useValue: prisma }],
     }).compile();
 
     service = module.get<GroupsService>(GroupsService);
@@ -41,9 +42,9 @@ describe('GroupsService', () => {
     it('should reject when group not found', async () => {
       prisma.group.findUnique.mockResolvedValue(null);
 
-      await expect(
-        service.joinGroup(studentId, groupId),
-      ).rejects.toThrow(NotFoundException);
+      await expect(service.joinGroup(studentId, groupId)).rejects.toThrow(
+        NotFoundException,
+      );
     });
 
     it('should reject when group is full', async () => {
@@ -54,9 +55,9 @@ describe('GroupsService', () => {
         _count: { memberships: 5 },
       });
 
-      await expect(
-        service.joinGroup(studentId, groupId),
-      ).rejects.toThrow(BadRequestException);
+      await expect(service.joinGroup(studentId, groupId)).rejects.toThrow(
+        BadRequestException,
+      );
     });
 
     it('should create new membership when student never joined', async () => {
@@ -94,9 +95,9 @@ describe('GroupsService', () => {
         status: 'ACTIVE',
       });
 
-      await expect(
-        service.joinGroup(studentId, groupId),
-      ).rejects.toThrow(ConflictException);
+      await expect(service.joinGroup(studentId, groupId)).rejects.toThrow(
+        ConflictException,
+      );
     });
 
     it('should allow re-join after leaving', async () => {

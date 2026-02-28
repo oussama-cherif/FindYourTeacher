@@ -21,7 +21,7 @@ jobs:
           cache-dependency-path: backend/package-lock.json
       - run: npm ci
       - run: npx prisma generate
-      - run: npx eslint "{src,apps,libs,test}/**/*.ts"
+      - run: npm run lint
       - run: npx tsc --noEmit
       - run: npm test
 

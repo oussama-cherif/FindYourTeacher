@@ -138,6 +138,7 @@ export class SessionsService {
       throw new ForbiddenException('Not authorized to view this session');
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { memberships, teacherId, ...groupData } = session.group;
 
     // Check if student has credits for this group

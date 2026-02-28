@@ -149,7 +149,10 @@ describe('AuthService', () => {
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
       prisma.user.update.mockResolvedValue({});
 
-      const result = await service.login({ email: 'a@b.com', password: 'pass' });
+      const result = await service.login({
+        email: 'a@b.com',
+        password: 'pass',
+      });
 
       expect(result).toHaveProperty('accessToken');
       expect(result).toHaveProperty('refreshToken');
@@ -163,9 +166,9 @@ describe('AuthService', () => {
         refreshToken: null,
       });
 
-      await expect(
-        service.refreshTokens('1', 'some-token'),
-      ).rejects.toThrow(UnauthorizedException);
+      await expect(service.refreshTokens('1', 'some-token')).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
 
     it('should wipe tokens on reuse detection (mismatched token)', async () => {
@@ -178,9 +181,9 @@ describe('AuthService', () => {
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
       prisma.user.update.mockResolvedValue({});
 
-      await expect(
-        service.refreshTokens('1', 'stolen-token'),
-      ).rejects.toThrow(UnauthorizedException);
+      await expect(service.refreshTokens('1', 'stolen-token')).rejects.toThrow(
+        UnauthorizedException,
+      );
 
       expect(prisma.user.update).toHaveBeenCalledWith({
         where: { id: '1' },
