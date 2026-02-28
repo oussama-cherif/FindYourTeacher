@@ -97,9 +97,9 @@ docker compose up              # starts PostgreSQL, backend, and frontend
 ### Deploy steps
 
 1. Push code to GitHub
-2. **Render**: New Web Service → connect repo → it reads `render.yaml` → set env vars (`DATABASE_URL`, `FRONTEND_URL`, `FLOUCI_APP_TOKEN`, `FLOUCI_APP_SECRET`)
-3. **Vercel**: Import project → root directory = `frontend` → set `NEXT_PUBLIC_API_URL` to Render backend URL
-4. Update Render `FRONTEND_URL` env var to the Vercel deployment URL
+2. **Render**: Blueprints → connect repo → it reads `render.yaml` → set env vars (`DATABASE_URL`, `FRONTEND_URL`, `FLOUCI_APP_TOKEN`, `FLOUCI_APP_SECRET`)
+3. **Vercel**: Import project → root directory = `frontend` → set `NEXT_PUBLIC_API_URL` to Render backend URL + `/api` (e.g. `https://your-app.onrender.com/api`)
+4. Update Render `FRONTEND_URL` env var to the Vercel deployment URL (for CORS)
 
 ## Project Status
 
