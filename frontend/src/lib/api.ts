@@ -28,6 +28,10 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+      // Only attempt refresh if the user was previously authenticated
+      if (!accessToken) {
+        return Promise.reject(error);
+      }
       try {
         const { data } = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
