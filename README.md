@@ -88,6 +88,19 @@ docker compose up              # starts PostgreSQL, backend, and frontend
 | Payments        | `/api/payments`         | Buy credits (Flouci), verify, balances, earnings    |
 | Recommendations | `/api/recommendations`  | Student reviews, admin approve/reject               |
 
+## Deployment
+
+**Backend** → [Render](https://render.com) (free tier, auto-deploy from GitHub)
+**Frontend** → [Vercel](https://vercel.com) (optimized for Next.js)
+**Database** → [Neon](https://neon.tech) (serverless PostgreSQL)
+
+### Deploy steps
+
+1. Push code to GitHub
+2. **Render**: New Web Service → connect repo → it reads `render.yaml` → set env vars (`DATABASE_URL`, `FRONTEND_URL`, `FLOUCI_APP_TOKEN`, `FLOUCI_APP_SECRET`)
+3. **Vercel**: Import project → root directory = `frontend` → set `NEXT_PUBLIC_API_URL` to Render backend URL
+4. Update Render `FRONTEND_URL` env var to the Vercel deployment URL
+
 ## Project Status
 
 - [x] Phase 1 — Foundation (NestJS, Next.js, Prisma, JWT auth, i18n)
