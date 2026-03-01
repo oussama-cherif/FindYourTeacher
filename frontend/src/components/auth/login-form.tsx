@@ -3,17 +3,20 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation';
 import api, { setAccessToken } from '@/lib/api';
 
 export function LoginForm() {
   const t = useTranslations();
   const router = useRouter();
   const [error, setError] = useState('');
+  const [showResendLink, setShowResendLink] = useState(false);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError('');
+    setShowResendLink(false);
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
@@ -33,12 +36,15 @@ export function LoginForm() {
             : '/dashboard/student';
       router.push(dashboardPath);
     } catch (err: unknown) {
-      const axiosErr = err as { response?: { status?: number } };
-      setError(
-        axiosErr.response?.status === 401
-          ? t('auth.invalidCredentials')
-          : t('common.error'),
-      );
+      const axiosErr = err as { response?: { status?: number; data?: { message?: string } } };
+      if (axiosErr.response?.status === 403) {
+        setError(t('auth.emailNotVerified'));
+        setShowResendLink(true);
+      } else if (axiosErr.response?.status === 401) {
+        setError(t('auth.invalidCredentials'));
+      } else {
+        setError(t('common.error'));
+      }
     } finally {
       setLoading(false);
     }
@@ -49,6 +55,14 @@ export function LoginForm() {
       {error && (
         <div className="rounded bg-red-50 p-3 text-sm text-red-600">
           {error}
+          {showResendLink && (
+            <Link
+              href="/register/verify-email"
+              className="ml-2 font-medium text-blue-600 underline hover:text-blue-700"
+            >
+              {t('auth.resendVerification')}
+            </Link>
+          )}
         </div>
       )}
       <div>

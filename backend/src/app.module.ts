@@ -13,6 +13,7 @@ import { SessionsModule } from './sessions/sessions.module';
 import { PaymentsModule } from './payments/payments.module';
 import { RecommendationsModule } from './recommendations/recommendations.module';
 import { HealthController } from './health.controller';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { HealthController } from './health.controller';
     }),
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 20 }]),
     PrismaModule,
+    MailModule,
     AuthModule,
     UsersModule,
     TeachersModule,

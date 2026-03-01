@@ -45,7 +45,19 @@
     "invalidCredentials": "Incorrect email or password",
     "emailTaken": "This email is already in use",
     "passwordMinLength": "Password must be at least 8 characters",
-    "registerSuccess": "Account created successfully"
+    "registerSuccess": "Account created successfully",
+    "checkYourEmail": "Check your email",
+    "verificationSent": "We sent a verification link to:",
+    "verificationExpiry": "The link expires in 24 hours.",
+    "verificationResent": "Email resent successfully!",
+    "resendVerification": "Resend verification email",
+    "backToLogin": "Back to login",
+    "verifyingEmail": "Verifying your email...",
+    "emailVerified": "Email verified!",
+    "redirecting": "Redirecting to your dashboard...",
+    "verificationFailed": "Verification failed",
+    "verificationFailedDesc": "The link is invalid or has expired. Request a new one.",
+    "emailNotVerified": "Please verify your email address before logging in."
   },
   "teacher": {
     "dashboard": "Dashboard",

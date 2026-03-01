@@ -45,7 +45,19 @@
     "invalidCredentials": "Email ou mot de passe incorrect",
     "emailTaken": "Cet email est déjà utilisé",
     "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
-    "registerSuccess": "Compte créé avec succès"
+    "registerSuccess": "Compte créé avec succès",
+    "checkYourEmail": "Vérifiez votre boîte mail",
+    "verificationSent": "Nous avons envoyé un lien de vérification à :",
+    "verificationExpiry": "Le lien expire dans 24 heures.",
+    "verificationResent": "E-mail renvoyé avec succès !",
+    "resendVerification": "Renvoyer l'e-mail de vérification",
+    "backToLogin": "Retour à la connexion",
+    "verifyingEmail": "Vérification en cours...",
+    "emailVerified": "E-mail vérifié !",
+    "redirecting": "Redirection vers votre tableau de bord...",
+    "verificationFailed": "Vérification échouée",
+    "verificationFailedDesc": "Le lien est invalide ou a expiré. Demandez un nouveau lien.",
+    "emailNotVerified": "Veuillez vérifier votre adresse e-mail avant de vous connecter."
   },
   "teacher": {
     "dashboard": "Tableau de bord",
