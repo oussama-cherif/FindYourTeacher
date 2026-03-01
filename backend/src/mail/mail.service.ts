@@ -49,15 +49,16 @@ export class MailService {
     `;
 
     try {
-      await this.resend.emails.send({
+      const result = await this.resend.emails.send({
         from: this.fromEmail,
         to,
         subject,
         html,
       });
+      this.logger.log(`Verification email sent to ${to}: ${JSON.stringify(result)}`);
     } catch (error) {
       this.logger.error(`Failed to send verification email to ${to}`, error);
-      throw error;
+      // Don't throw — user is already created, they can use resend button
     }
   }
 }
