@@ -1,9 +1,7 @@
 import {
   Controller,
   Post,
-  Get,
   Body,
-  Query,
   UseGuards,
   Res,
   HttpCode,
@@ -15,7 +13,6 @@ import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { ResendVerificationDto } from './dto/resend-verification.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { JwtAccessGuard } from './guards/jwt-access.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
@@ -34,26 +31,13 @@ export class AuthController {
   @Post('register')
   @Throttle({ default: { limit: 5, ttl: 60000 } })
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() dto: RegisterDto) {
-    return this.authService.register(dto);
-  }
-
-  @Get('verify-email')
-  @HttpCode(HttpStatus.OK)
-  async verifyEmail(
-    @Query('token') token: string,
+  async register(
+    @Body() dto: RegisterDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const tokens = await this.authService.verifyEmail(token);
+    const tokens = await this.authService.register(dto);
     this.setRefreshTokenCookie(res, tokens.refreshToken);
     return { accessToken: tokens.accessToken };
-  }
-
-  @Post('resend-verification')
-  @Throttle({ default: { limit: 3, ttl: 60000 } })
-  @HttpCode(HttpStatus.OK)
-  async resendVerification(@Body() dto: ResendVerificationDto) {
-    return this.authService.resendVerification(dto.email);
   }
 
   @Post('login')

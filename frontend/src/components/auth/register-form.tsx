@@ -2,14 +2,13 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
-import api from '@/lib/api';
+import api, { setAccessToken } from '@/lib/api';
 
 export function RegisterForm() {
   const t = useTranslations();
   const router = useRouter();
-  const locale = useLocale();
   const searchParams = useSearchParams();
   const defaultRole = searchParams.get('role') === 'teacher' ? 'TEACHER' : 'STUDENT';
   const [error, setError] = useState('');
@@ -28,15 +27,15 @@ export function RegisterForm() {
     const role = formData.get('role') as string;
 
     try {
-      await api.post('/auth/register', {
+      const { data } = await api.post('/auth/register', {
         fullName,
         email,
         password,
         phone,
         role,
-        locale,
       });
-      router.push(`/register/verify-email?email=${encodeURIComponent(email)}`);
+      setAccessToken(data.accessToken);
+      router.push(role === 'TEACHER' ? '/dashboard/teacher' : '/dashboard/student');
     } catch (err: unknown) {
       const axiosErr = err as { response?: { status?: number } };
       setError(

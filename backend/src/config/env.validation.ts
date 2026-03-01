@@ -11,8 +11,6 @@ export const envValidationSchema = Joi.object({
   FLOUCI_APP_TOKEN: Joi.string().default('sandbox'),
   FLOUCI_APP_SECRET: Joi.string().default('sandbox'),
   FLOUCI_BASE_URL: Joi.string().default('https://developers.flouci.com'),
-  RESEND_API_KEY: Joi.string().required(),
-  RESEND_FROM_EMAIL: Joi.string().default('FindYourTeacher <onboarding@resend.dev>'),
   NODE_ENV: Joi.string()
     .valid('development', 'production', 'test')
     .default('development'),

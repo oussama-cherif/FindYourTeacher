@@ -30,8 +30,4 @@ export class RegisterDto {
   @IsOptional()
   @IsEnum(UserRole, { message: 'role must be STUDENT or TEACHER' })
   role?: UserRole;
-
-  @IsOptional()
-  @IsString()
-  locale?: string;
 }

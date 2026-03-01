@@ -60,11 +60,9 @@ model User {
   avatarUrl     String?  @map("avatar_url")
   phone         String?
   locale        String   @default("fr")
-  isVerified                  Boolean   @default(false) @map("is_verified")
-  isActive                    Boolean   @default(true) @map("is_active")
-  refreshToken                String?   @map("refresh_token")
-  emailVerificationToken      String?   @map("email_verification_token")
-  emailVerificationExpiresAt  DateTime? @map("email_verification_expires_at") @db.Timestamptz
+  isVerified    Boolean  @default(false) @map("is_verified")
+  isActive      Boolean  @default(true) @map("is_active")
+  refreshToken  String?  @map("refresh_token")
   createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   teacherProfile    TeacherProfile?
