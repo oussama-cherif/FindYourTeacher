@@ -59,8 +59,18 @@ npm run dev                    # runs on localhost:3000
 ### Docker (alternative)
 
 ```bash
-docker compose up              # starts PostgreSQL, backend, and frontend
+# 1. Create env files from examples
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env.local
+
+# 2. Edit backend/.env — set your DATABASE_URL and JWT secrets
+# 3. Edit frontend/.env.local — set NEXT_PUBLIC_API_URL=http://localhost:3001/api
+
+# 4. Start everything (PostgreSQL, backend, frontend)
+docker compose up
 ```
+
+The backend runs on `localhost:3001`, frontend on `localhost:3000`, and PostgreSQL on `localhost:5432`.
 
 ## Tech Stack
 
